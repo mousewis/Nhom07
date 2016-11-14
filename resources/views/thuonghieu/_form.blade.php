@@ -11,7 +11,7 @@
   $method = $action == 'update' ? '<input type="hidden" name="_method" value="PUT">' : '';
   $action = $action == 'update' ? $action.'/'.$thuonghieu->th_maso : $action; 
 ?>
-<form action="<?= url('Thuonghieu/'.$action) ?>" method="POST" class="form-horizontal">
+<form action="<?= url('thuonghieu/'.$action) ?>" method="POST" class="form-horizontal">
 <?= $method ?>
 	<fieldset>
     		<div class="form-group"><label class="control-label">Th Ten</label>

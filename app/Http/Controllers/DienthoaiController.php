@@ -17,11 +17,11 @@ class DienthoaiController extends Controller {
 	 *
 	 * Route::get('dienthoai', 'DienthoaiController@index')->name('dienthoai.index');
 	 */
+
 	public function index()
 	{
 		$dienthoai = Dienthoai::all();
-
-		return view('dienthoai.index', compact('dienthoai',$dienthoai));
+        return view('dienthoai.index', compact('dienthoai',$dienthoai),compact('login_message',session('login_message')));
 	}
 
 	/**

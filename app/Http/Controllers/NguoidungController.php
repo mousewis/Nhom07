@@ -35,7 +35,33 @@ class NguoidungController extends Controller {
 	{
 		return view('nguoidung.create');
 	}
-
+    public function login()
+    {
+        return view('nguoidung.login');
+    }
+    public function checklogin(Request $request)
+    {
+        $this->validate($request,
+            ['nd_maso'=>'required|max:64',
+        'nd_matkhau'=>'required|max:256']);
+        $check = Nguoidung::checklogin($request->input('nd_maso'),md5($request->input('nd_matkhau')));
+        if (isset($check)) {
+            \Session::put('user',$check->nd_maso);
+            return redirect('/');
+        }
+        else
+            return back()->withInput()->with('login_message','Kiểm tra tên người dùng và mật khẩu');
+    }
+    public function logout()
+    {
+        if (\Session::has('user'))
+            \Session::clear();
+        return redirect('/');
+    }
+    public  function signup()
+    {
+        return view('nguoidung.signup');
+    }
 	/**
 	 * Store a newly created resource in storage.
 	 *
