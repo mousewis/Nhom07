@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Thuonghieu;
 use Illuminate\Http\Request;
 
 use App\Dienthoai;
-
+use App\Nguoidung;
 
 class DienthoaiController extends Controller {
 
@@ -21,9 +22,15 @@ class DienthoaiController extends Controller {
 	public function index()
 	{
 		$dienthoai = Dienthoai::all();
-        return view('dienthoai.index', compact('dienthoai',$dienthoai),compact('login_message',session('login_message')));
+        return view('dienthoai.index', compact('dienthoai',$dienthoai));
 	}
-
+    public function chitiet($dt_maso)
+    {
+        $dienthoai = Dienthoai::chitiet($dt_maso);
+        $thuonghieu = Thuonghieu::all()->take(10);
+        $nguoiban = Nguoidung::nguoiban();
+        return view('dienthoai.chitiet',compact('dienthoai',$dienthoai))->with(['thuonghieu'=>$thuonghieu,'nguoiban'=>$nguoiban]);
+    }
 	/**
 	 * Show the form for creating a new resource.
 	 *

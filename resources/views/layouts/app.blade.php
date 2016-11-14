@@ -9,6 +9,8 @@
 
     <link href="{{ URL::asset('/css/main.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('/css/animate.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('/css/normalize.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('/css/component.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('/css/prettyPhoto.css')}}" rel="stylesheet">
@@ -33,7 +35,7 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a href="#"></i>Xin chào <?= Session::has('user')?Session::get('user'):' Khách'?></a></li>
+                            <li><a href="#"></i>Xin chào <?= Session::has('nd_maso')?Session::get('nd_maso'):' Khách'?></a></li>
 
                         </ul>
                     </div>
@@ -50,7 +52,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="index.html"><img src="{{URL::asset('/images/home/logo.png')}}" alt="" /></a>
+                        <a href="{{url('/')}}"><img src="{{URL::asset('/images/home/logo.png')}}" alt="" /></a>
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -59,14 +61,19 @@
                             <li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
                             {{--<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>--}}
                             <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-                            <?php if (Session::has('user')): ?>
                             <li>
-                                <a href="{{url('nguoidung/logout')}}"><i class="fa fa-sign-out"></i>Đăng xuất</a>
+                                <ol class="breadcrumb">
+                                    <li><a href="{{url('giohang/chitiet')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                    <li><?= Session::has('gh_sluong')?Session::has('gh_sluong'):'0' ?></li>
+                                </ol>
+                            </li>
+                            <?php if (Session::has('nd_maso')): ?>
+                            <li>
+                                <a href="{{url('nguoidung/dangxuat')}}"><i class="fa fa-sign-out"></i>Đăng xuất</a>
                             </li>
                             <?php else:?>
-                            <li><a href="{{url('nguoidung/signup')}}"><i class="fa fa-lock"></i>Đăng kí</a></li>
-                            <li><a href="{{url('nguoidung/login')}}"><i class="fa fa-sign-in"></i>Đăng nhập</a></li>
+                            <li><a href="{{url('nguoidung/dangki')}}"><i class="fa fa-lock"></i>Đăng kí</a></li>
+                            <li><a href="{{url('nguoidung/dangnhap')}}"><i class="fa fa-sign-in"></i>Đăng nhập</a></li>
                             <?php endif; ?>
                         </ul>
                     </div>
@@ -111,7 +118,7 @@
 <script>
     $(document).ready(function () {
 
-        $("h2.number").number(true,0);
+        $(".number").number(true,0);
     });
 </script>
 </body>

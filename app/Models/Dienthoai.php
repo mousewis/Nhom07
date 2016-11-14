@@ -21,4 +21,8 @@ class Dienthoai extends Model {
     {
         return DB::table('dienthoai')->join('hoadonnhap','dt_hdn','=','hdn_maso')->where('dt_thuonghieu','=',$th_maso)->paginate(12);
     }
+    public static function chitiet($dt_maso)
+    {
+        return DB::table('dienthoai')->join('hoadonnhap','dt_hdn','=','hdn_maso')->join('thuonghieu','dt_thuonghieu','=','th_maso')->where('dt_maso','=',$dt_maso)->first();
+    }
 }

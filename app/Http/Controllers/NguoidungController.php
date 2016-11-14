@@ -35,34 +35,60 @@ class NguoidungController extends Controller {
 	{
 		return view('nguoidung.create');
 	}
-    public function login()
+    public function dangnhap()
     {
-        return view('nguoidung.login');
+        return view('nguoidung.dangnhap');
     }
-    public function checklogin(Request $request)
+    public function _dangnhap(Request $request)
     {
         $this->validate($request,
             ['nd_maso'=>'required|max:64',
         'nd_matkhau'=>'required|max:256']);
-        $check = Nguoidung::checklogin($request->input('nd_maso'),md5($request->input('nd_matkhau')));
+        $check = Nguoidung::_dangnhap($request->input('nd_maso'),md5($request->input('nd_matkhau')));
         if (isset($check)) {
-            \Session::put('user',$check->nd_maso);
-            return redirect('/');
+            \Session::put('nd_maso',$check->nd_maso);
+            return redirect('/')->with('message','Đăng nhập thành công');
         }
         else
-            return back()->withInput()->with('login_message','Kiểm tra tên người dùng và mật khẩu');
+            return back()->withInput()->with('message','Kiểm tra tên người dùng và mật khẩu');
     }
-    public function logout()
+    public function dangxuat()
     {
-        if (\Session::has('user'))
+        if (\Session::has('nd_maso'))
             \Session::clear();
         return redirect('/');
     }
-    public  function signup()
+    public  function dangki()
     {
-        return view('nguoidung.signup');
+        return view('nguoidung.dangki');
     }
-	/**
+	public function  _dangki(Request $request)
+    {
+        $this->validate($request, [
+            'nd_maso' => 'required|max:64',
+            'nd_email' => 'required|max:64',
+            'nd_matkhau' => 'required|max:256',
+            'nd_hoten' => 'required|max:256',
+            'nd_sdt' => 'required|max:256',
+            'nd_dchi' => 'required|max:256',
+            'nd_loai' => 'required|numeric',
+        ]);
+        $nguoidung = new Nguoidung();
+        $nguoidung->nd_maso = $request->input('nd_maso');
+        $nguoidung->nd_email = $request->input('nd_email');
+        $nguoidung->nd_matkhau = md5($request->input('nd_matkhau'));
+        $nguoidung->nd_hoten = $request->input('nd_hoten');
+        $nguoidung->nd_sdt = $request->input('nd_sdt');
+        $nguoidung->nd_dchi = $request->input('nd_dchi');
+        $nguoidung->nd_loai = $request->input('nd_loai');
+        $nguoidung->nd_taikhoan = 0;
+        $nguoidung->nd_tinhtrang = 0;
+        $nguoidung->nd_danhgia = 0;
+        $nguoidung->nd_kichhoat = str_random(16);
+        $nguoidung->save();
+        return redirect('/')->with('message', 'Đã đăng kí thành công!');
+    }
+    /**
 	 * Store a newly created resource in storage.
 	 *
 	 * @param Request $request
@@ -70,39 +96,33 @@ class NguoidungController extends Controller {
 	 *
 	 * Route::post('nguoidung/store', 'NguoidungController@store');
 	 */
+
 	public function store(Request $request)
 	{
 	     $this->validate($request, [
-
+            'nd_maso' => 'required|max:64',
             'nd_email' => 'required|max:64',
             'nd_matkhau' => 'required|max:256',
             'nd_hoten' => 'required|max:256',
             'nd_sdt' => 'required|max:256',
             'nd_dchi' => 'required|max:256',
             'nd_loai' => 'required|numeric',
-            'nd_taikhoan' => 'required|numeric',
-            'nd_tinhtrang' => 'required|numeric',
-            'nd_danhgia' => 'required|numeric',
-            'nd_kichhoat' => 'required|max:256',
-
 		 ]);
-
 		$nguoidung = new Nguoidung();
-
 		$nguoidung->nd_email = $request->input('nd_email');
 		$nguoidung->nd_matkhau = $request->input('nd_matkhau');
 		$nguoidung->nd_hoten = $request->input('nd_hoten');
 		$nguoidung->nd_sdt = $request->input('nd_sdt');
 		$nguoidung->nd_dchi = $request->input('nd_dchi');
 		$nguoidung->nd_loai = $request->input('nd_loai');
-		$nguoidung->nd_taikhoan = $request->input('nd_taikhoan');
-		$nguoidung->nd_tinhtrang = $request->input('nd_tinhtrang');
-		$nguoidung->nd_danhgia = $request->input('nd_danhgia');
-		$nguoidung->nd_kichhoat = $request->input('nd_kichhoat');
+		$nguoidung->nd_taikhoan = 0;
+		$nguoidung->nd_tinhtrang = 0;
+		$nguoidung->nd_danhgia = 0;
+		$nguoidung->nd_kichhoat = str_random(16);
 
 		$nguoidung->save();
 
-		return redirect()->route('nguoidung.index')->with('message', 'Item created successfully.');
+		return redirect('/')->with('message', 'Item created successfully.');
 	}
 
 	/**
