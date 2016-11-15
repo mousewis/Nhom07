@@ -21,4 +21,9 @@ class Nguoidung extends Model {
         $result = DB::table('nguoidung')->where('nd_loai','=','1')->paginate(10);
         return $result;
     }
+    public static function chitiet_nguoimua($nd_maso)
+    {
+        $result = DB::table('nguoidung')->where([['nd_loai','=','2'],['nd_maso','=',$nd_maso],])->first();
+        return $result;
+    }
 }

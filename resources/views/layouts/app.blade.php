@@ -58,17 +58,18 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
-                            {{--<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>--}}
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
-                            <li>
-                                <ol class="breadcrumb">
-                                    <li><a href="{{url('giohang/chitiet')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-                                    <li><?= Session::has('gh_sluong')?Session::has('gh_sluong'):'0' ?></li>
-                                </ol>
-                            </li>
+
                             <?php if (Session::has('nd_maso')): ?>
                             <li>
+                                <li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
+                                {{--<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>--}}
+                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+                                <li>
+                                    <ol class="breadcrumb">
+                                        <li><a href="{{url('giohang/chitiet')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                        <li><?= Session::has('gh_sluong')?Session::has('gh_sluong'):'0' ?></li>
+                                    </ol>
+                                </li>
                                 <a href="{{url('nguoidung/dangxuat')}}"><i class="fa fa-sign-out"></i>Đăng xuất</a>
                             </li>
                             <?php else:?>

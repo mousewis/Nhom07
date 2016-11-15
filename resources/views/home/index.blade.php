@@ -23,10 +23,18 @@
                             <img src="{{URL::asset('/images/product-details/'.$item->dt_hinh)}}" alt="" >
                             <h2 class="number"><?= $item->dt_gia ?></h2>
                             <p><?= $item->dt_ten ?></p>
-                            <a href="{{url('dienthoai/chitiet/'.$item->dt_maso)}}" class="btn btn-default add-to-cart">Xem chi tiết <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="{{url('dienthoai/chitiet/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
+                        </div>
+                        <div class="product-overlay">
+                            <div class="overlay-content">
+                            <h2 class="number"><?= $item->dt_gia ?></h2>
+                            <p><?= $item->dt_ten ?></p>
+                            <a href="{{url('dienthoai/chitiet/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
+                            </div>
                         </div>
                         <?php
                         echo floor(abs(time() - strtotime($item->hdn_tgian))/86400)<10?"<img src='images/home/new.png' class='new' alt=''>":"" ?>
+                        </div>
                         <div class="choose">
                             <ul class="nav nav-pills nav-justified">
                                 <li><a href=""><i class="fa fa-user"></i><?=$item->hdn_nguoidung?></a></li>
@@ -34,8 +42,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
             <?php endforeach; ?>
+        </div>
             <?php else: ?>
 
             <p>Không có danh sách điện thoại</p>
@@ -48,6 +57,5 @@
             </div><!--features_items-->
 
 
-        </div>
         </div>
 @endsection
