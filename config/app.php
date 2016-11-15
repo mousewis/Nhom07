@@ -140,6 +140,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Scaffold\Builder\GeneratorsServiceProvider::class,
         Reliese\Coders\CodersServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
@@ -196,6 +197,7 @@ return [
     */
 
     'aliases' => [
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,

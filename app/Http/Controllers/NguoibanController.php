@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Thuonghieu;
 use Illuminate\Http\Request;
 
-use App\Dienthoai;
+use App\Nguoidung;
 
 /**
  * Class HomeController
@@ -33,5 +33,10 @@ class NguoibanController extends Controller
         $dienthoai = Dienthoai::getthuonghieu($th_maso);
         $thuonghieu = Thuonghieu::all();
         return view('home.index', compact('dienthoai',$dienthoai),compact('thuonghieu',$thuonghieu));
+    }
+    public function chitiet($nd_maso)
+    {
+        $nguoiban = Nguoidung::chitiet_nguoiban($nd_maso);
+        return view('nguoiban.chitiet')->with('nguoiban',$nguoiban);
     }
 }

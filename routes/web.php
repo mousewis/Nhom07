@@ -20,6 +20,7 @@ Route::get('nguoidung/dangnhap','NguoidungController@dangnhap');
 Route::post('nguoidung/_dangnhap','NguoidungController@_dangnhap');
 Route::get('nguoidung/dangxuat','NguoidungController@dangxuat');
 Route::get('nguoimua/{nd_maso}','NguoimuaController@chitiet');
+Route::get('nguoiban/{nd_maso}','NguoibanController@chitiet');
 Route::resource('quantri','QuantriController');
 Route::resource('thuonghieu','ThuonghieuController');
 Route::post('thuonghieu/store', 'ThuonghieuController@store');

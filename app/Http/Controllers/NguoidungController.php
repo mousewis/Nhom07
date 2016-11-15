@@ -37,6 +37,7 @@ class NguoidungController extends Controller {
 	}
     public function dangnhap()
     {
+        if (\Session::has())
         return view('nguoidung.dangnhap');
     }
     public function _dangnhap(Request $request)
@@ -47,7 +48,11 @@ class NguoidungController extends Controller {
         $check = Nguoidung::_dangnhap($request->input('nd_maso'),md5($request->input('nd_matkhau')));
         if (isset($check)) {
             \Session::put('nd_maso',$check->nd_maso);
-            return redirect('/')->with('message','Đăng nhập thành công');
+            \Session::put('nd_loai',$check->nd_loai);
+            if ($check->nd_loai=='1')
+                return redirect('nguoiban/'.$check->nd_maso)->with('message','Đăng nhập thành công');
+            else
+                return redirect('/')->with('message','Đăng nhập thành công');
         }
         else
             return back()->withInput()->with('message','Kiểm tra tên người dùng và mật khẩu');

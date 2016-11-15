@@ -37,6 +37,7 @@ class NguoimuaController extends Controller
     }
     public function chitiet($nd_maso)
     {
+        ////if (\Session::has('nd_maso',))
         $nguoimua = Nguoidung::chitiet_nguoimua($nd_maso);
         return view('nguoimua.chitiet')->with('nguoimua',$nguoimua);
     }
