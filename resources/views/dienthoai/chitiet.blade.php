@@ -34,8 +34,8 @@
                     <div class="choose">
                     <ul>
                         <li><p><i class="fa fa-th-large"></i>   <b>Số lượng còn lại: </b><?= ($dienthoai->dt_sluong>0)?($dienthoai->dt_sluong):'HẾT HÀNG' ?></p></li>
-                    <li><p><i class="fa fa-tags"></i>   <b>Thương hiệu: </b><?= $dienthoai->th_ten?></p></li>
-                    <li><p><i class="fa fa-user"></i>   <b>Người bán: </b><a href=""><?= $dienthoai->hdn_nguoidung?></a></p></li>
+                        <li><p><i class="fa fa-tags"></i>   <b>Thương hiệu: </b><a href="{{url('home/thuonghieu/'.$dienthoai->th_maso)}}"><?= $dienthoai->th_ten?></a></p></li>
+                        <li><p><i class="fa fa-user"></i>   <b>Người bán: </b><a href="{{url('home/nguoiban/'.$dienthoai->hdn_nguoidung)}}"><?= $dienthoai->hdn_nguoidung?></a></p></li>
                     </ul>
                     </div>
                     </ul>

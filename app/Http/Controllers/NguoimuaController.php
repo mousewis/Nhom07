@@ -35,10 +35,13 @@ class NguoimuaController extends Controller
         $thuonghieu = Thuonghieu::all();
         return view('home.index', compact('dienthoai',$dienthoai),compact('thuonghieu',$thuonghieu));
     }
-    public function chitiet($nd_maso)
+    public function chitiet()
     {
-        ////if (\Session::has('nd_maso',))
-        $nguoimua = Nguoidung::chitiet_nguoimua($nd_maso);
-        return view('nguoimua.chitiet')->with('nguoimua',$nguoimua);
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')==2))
+        {
+            $nguoimua = Nguoidung::chitiet_nguoimua(\Session::get('nd_maso'));
+            return view('nguoimua.chitiet')->with('nguoimua', $nguoimua);
+        }
+        return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này');
     }
 }

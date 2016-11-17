@@ -37,7 +37,8 @@ class NguoidungController extends Controller {
 	}
     public function dangnhap()
     {
-        if (\Session::has())
+        if (\Session::has('nd_maso'))
+            return redirect('/');
         return view('nguoidung.dangnhap');
     }
     public function _dangnhap(Request $request)
@@ -65,6 +66,8 @@ class NguoidungController extends Controller {
     }
     public  function dangki()
     {
+        if (\Session::has('nd_maso'))
+            return redirect('/');
         return view('nguoidung.dangki');
     }
 	public function  _dangki(Request $request)
@@ -89,7 +92,7 @@ class NguoidungController extends Controller {
         $nguoidung->nd_taikhoan = 0;
         $nguoidung->nd_tinhtrang = 0;
         $nguoidung->nd_danhgia = 0;
-        $nguoidung->nd_kichhoat = str_random(16);
+        $request->input('nd_loai')=='1'?$nguoidung->nd_kichhoat = str_random(16):$nguoidung->nd_kichhoat = 0;
         $nguoidung->save();
         return redirect('/')->with('message', 'Đã đăng kí thành công!');
     }

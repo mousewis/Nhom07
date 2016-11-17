@@ -35,7 +35,6 @@ class DanhgiaController extends Controller {
 	{
 		return view('danhgia.create');
 	}
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -51,17 +50,12 @@ class DanhgiaController extends Controller {
             'dg_nguoimua' => 'required|max:64',
             'dg_nguoiban' => 'required|max:64',
             'dg_diem' => 'required|numeric',
-
 		 ]);
-		 
 		$danhgia = new Danhgia();
-
 		$danhgia->dg_nguoimua = $request->input('dg_nguoimua');
 		$danhgia->dg_nguoiban = $request->input('dg_nguoiban');
 		$danhgia->dg_diem = $request->input('dg_diem');
-
 		$danhgia->save();
-
 		return redirect()->route('danhgia.index')->with('message', 'Item created successfully.');
 	}
 

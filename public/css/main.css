@@ -8,9 +8,9 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
+  /*background:none;*/
   position: relative;
-  font-weight:400px;
+  font-weight:400;
 }
 
 ul li {
@@ -262,10 +262,10 @@ a#scrollUp i{
   height: 35px;
   outline: medium none;
   padding-left: 10px;
-  width: 155px;
+  width: 100%;
   background-image: url(../images/home/searchicon.png);
   background-repeat: no-repeat;
-  background-position: 130px;
+  background-position: 90%;
 }
 
 

@@ -34,9 +34,13 @@ class NguoibanController extends Controller
         $thuonghieu = Thuonghieu::all();
         return view('home.index', compact('dienthoai',$dienthoai),compact('thuonghieu',$thuonghieu));
     }
-    public function chitiet($nd_maso)
+    public function chitiet()
     {
-        $nguoiban = Nguoidung::chitiet_nguoiban($nd_maso);
-        return view('nguoiban.chitiet')->with('nguoiban',$nguoiban);
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')==1))
+        {
+            $nguoiban = Nguoidung::chitiet_nguoiban(\Session::get('nd_maso'));
+            return view('nguoiban.chitiet')->with('nguoiban',$nguoiban);
+        }
+        return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
     }
 }

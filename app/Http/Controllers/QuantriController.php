@@ -35,8 +35,63 @@ class QuantriController extends Controller {
 	{
 		return view('quantri.create');
 	}
+    public function dangnhap()
+    {
+        if (\Session::has('qt_maso'))
+            return redirect('/');
+        return view('quantri.dangnhap');
+    }
+    public function _dangnhap(Request $request)
+    {
+        $this->validate($request,
+            ['qt_maso'=>'required|max:64',
+                'qt_matkhau'=>'required|max:256']);
+        $check = Quantri::_dangnhap($request->input('qt_maso'),md5($request->input('qt_matkhau')));
+        if (isset($check))
+        {
+            \Session::put('qt_maso', $check->qt_maso);
+            return redirect('quantri')->with('message', 'Đăng nhập thành công');
+        }
+        return back()->withInput()->with('message','Kiểm tra tên người dùng và mật khẩu');
+    }
+    public function dangxuat()
+    {
+        if (\Session::has('nd_maso'))
+            \Session::clear();
+        return redirect('/');
+    }
+    public  function dangki()
+    {
+        return view('nguoidung.dangki');
+    }
+    public function  _dangki(Request $request)
+    {
+        $this->validate($request, [
+            'nd_maso' => 'required|max:64',
+            'nd_email' => 'required|max:64',
+            'nd_matkhau' => 'required|max:256',
+            'nd_hoten' => 'required|max:256',
+            'nd_sdt' => 'required|max:256',
+            'nd_dchi' => 'required|max:256',
+            'nd_loai' => 'required|numeric',
+        ]);
+        $nguoidung = new Nguoidung();
+        $nguoidung->nd_maso = $request->input('nd_maso');
+        $nguoidung->nd_email = $request->input('nd_email');
+        $nguoidung->nd_matkhau = md5($request->input('nd_matkhau'));
+        $nguoidung->nd_hoten = $request->input('nd_hoten');
+        $nguoidung->nd_sdt = $request->input('nd_sdt');
+        $nguoidung->nd_dchi = $request->input('nd_dchi');
+        $nguoidung->nd_loai = $request->input('nd_loai');
+        $nguoidung->nd_taikhoan = 0;
+        $nguoidung->nd_tinhtrang = 0;
+        $nguoidung->nd_danhgia = 0;
+        $nguoidung->nd_kichhoat = str_random(16);
+        $nguoidung->save();
+        return redirect('/')->with('message', 'Đã đăng kí thành công!');
+    }
 
-	/**
+    /**
 	 * Store a newly created resource in storage.
 	 *
 	 * @param Request $request
