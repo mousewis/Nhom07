@@ -29,7 +29,8 @@ class DienthoaiController extends Controller {
         $dienthoai = Dienthoai::chitiet($dt_maso);
         $thuonghieu = Thuonghieu::all()->take(10);
         $nguoiban = Nguoidung::nguoiban();
-        return view('dienthoai.chitiet',compact('dienthoai',$dienthoai))->with(['thuonghieu'=>$thuonghieu,'nguoiban'=>$nguoiban]);
+        $array = [];
+        return view('dienthoai.chitiet',compact('dienthoai',$dienthoai))->with(['thuonghieu'=>$thuonghieu,'nguoiban'=>$nguoiban,'rowId'=>(md5($dt_maso.serialize($array)))]);
     }
 	/**
 	 * Show the form for creating a new resource.

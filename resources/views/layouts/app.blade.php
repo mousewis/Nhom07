@@ -65,8 +65,8 @@
                                 <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
                                 <li>
                                     <ol class="breadcrumb">
-                                        <li><a href="{{url('giohang/chitiet')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-                                        <li><?= Session::has('gh_sluong')?Session::has('gh_sluong'):'0' ?></li>
+                                        <li><a href="{{url('home/giohang')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                        <li><?= Cart::content()->groupBy('id')->count() ?></li>
                                     </ol>
                                 </li>
                                 <li>
