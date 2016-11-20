@@ -1899,7 +1899,7 @@ h2.title {
 }
 
 
-.shopper-info > form > input, 
+.shopper-info > form > input,form > .row > .col-sm-6 > .shopper-info > input,
 .form-two > form > select, 
 .form-two > form > input, 
 .form-one > form > input {

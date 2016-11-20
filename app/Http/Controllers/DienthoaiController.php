@@ -52,7 +52,7 @@ class DienthoaiController extends Controller {
 	 *
 	 * Route::post('dienthoai/store', 'DienthoaiController@store');
 	 */
-	public function store(Request $request)
+	public function them(Request $request)
 	{
 	     $this->validate($request, [
 

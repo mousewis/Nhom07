@@ -30,4 +30,12 @@ class Nguoidung extends Model {
         $result = \DB::table('nguoidung')->where([['nd_loai','=','1'],['nd_maso','=',$nd_maso],])->first();
         return $result;
     }
+    public static function capnhat($nd_maso, $nd_hoten, $nd_matkhau, $nd_sdt, $nd_dchi)
+    {
+        $result = \DB::table('nguoidung')->where([['nd_maso','=',$nd_maso],['nd_matkhau','=',$nd_matkhau]])->first();
+        if (isset($result))
+            $nd_matkhau = $result->nd_matkhau;
+        else $nd_matkhau = md5($nd_matkhau);
+        \DB::table('nguoidung')->where('nd_maso','=',$nd_maso)->update(['nd_hoten'=>$nd_hoten,'nd_matkhau'=>$nd_matkhau,'nd_sdt'=>$nd_sdt,'nd_dchi'=>$nd_dchi]);
+    }
 }

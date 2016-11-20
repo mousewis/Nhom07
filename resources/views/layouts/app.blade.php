@@ -62,13 +62,15 @@
                             <?php if (Session::has('nd_maso')&&Session::has('nd_loai')): ?>
                                 <li><a href="{{(Session::get('nd_loai')==1)?url('nguoiban'):url('nguoimua')}}"><i class="fa fa-user"></i> Tài khoản</a></li>
                                 {{--<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>--}}
-                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
-                                <li>
-                                    <ol class="breadcrumb">
+                                <?php if(Session::get('nd_loai')=='2'):?>
+                                    <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+                                    <li>
+                                        <ol class="breadcrumb">
                                         <li><a href="{{url('home/giohang')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
                                         <li><?= Cart::content()->groupBy('id')->count() ?></li>
-                                    </ol>
-                                </li>
+                                        </ol>
+                                    </li>
+                                <?php endif;?>
                                 <li>
                                     <a href="{{url('nguoidung/dangxuat')}}"><i class="fa fa-sign-out"></i>Đăng xuất</a>
                                 </li>
@@ -116,6 +118,7 @@
 <script src="{{URL::asset('js/main.js')}}"></script>
 <script src="{{URL::asset('js/jquery-ui.js')}}"></script>
 <script src="{{URL::asset('js/jquery.number.min.js')}}"></script>
+<script src="{{URL::asset('js/delivery.js')}}"></script>
 <script>
     $(document).ready(function () {
 

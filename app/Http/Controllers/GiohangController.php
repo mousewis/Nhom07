@@ -30,7 +30,7 @@ class GiohangController extends Controller
         }
             return redirect('/')->with('error-message','Vui lòng đăng nhập!');
     }
-    public function themgiohang(Request $request)
+    public function them_giohang(Request $request)
     {
         if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&\Session::get('nd_loai')==2) {
             Cart::add(['id' => $request->input('dt_maso'), 'name' => $request->input('dt_ten'), 'qty' => $request->input('dt_sluong'), 'price' => $request->input('dt_gia')]);
@@ -38,7 +38,7 @@ class GiohangController extends Controller
         }
         return back()->with('error-message','Vui lòng đăng nhập để thêm vào giỏ hàng');
     }
-    public function xoagiohang(Request $request)
+    public function xoa_giohang(Request $request)
     {
         if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&\Session::get('nd_loai')==2) {
             Cart::remove($request->input('dt_maso'));

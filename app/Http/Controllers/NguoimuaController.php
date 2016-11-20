@@ -27,21 +27,33 @@ class NguoimuaController extends Controller
     {
         $dienthoai = Dienthoai::getList();
         $thuonghieu = Thuonghieu::all();
-        return view('home.index', compact('dienthoai',$dienthoai),compact('thuonghieu',$thuonghieu));
+        return view('home.index', compact('dienthoai',$dienthoai))->with('thuonghieu',$thuonghieu);
     }
     public function thuonghieu($th_maso)
     {
         $dienthoai = Dienthoai::getthuonghieu($th_maso);
         $thuonghieu = Thuonghieu::all();
-        return view('home.index', compact('dienthoai',$dienthoai),compact('thuonghieu',$thuonghieu));
+        return view('home.index', compact('dienthoai',$dienthoai))->with('thuonghieu',$thuonghieu);
     }
     public function chitiet()
     {
         if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')==2))
         {
             $nguoimua = Nguoidung::chitiet_nguoimua(\Session::get('nd_maso'));
-            return view('nguoimua.chitiet')->with('nguoimua', $nguoimua);
+            return view('nguoimua.chitiet', compact('nguoimua', $nguoimua));
         }
         return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này');
+    }
+    public function thanhtoan()
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='2'))
+        {
+            $nguoimua = Nguoidung::chitiet_nguoimua(\Session::get('nd_maso'));
+            return view('nguoimua.thanhtoan',compact('nguoimua',$nguoimua));
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Vui lòng đăng nhập và thêm sản phẩm vào giỏ hàng trước khi thanh toán');
+        }
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Hoadon;
+use App\Nguoidung;
 
 
 class HoadonController extends Controller {
@@ -23,6 +24,18 @@ class HoadonController extends Controller {
 
 		return view('hoadon.index', compact('hoadon',$hoadon));
 	}
+	public function chitiet()
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='2'))
+        {
+            $nguoidung = Nguoidung::chitiet_nguoimua(\Session::get('nd_maso'));
+            return view('hoadon.chitiet',compact('nguoidung',$nguoidung));
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Vui lòng đăng nhập và thêm sản phẩm vào giỏ hàng trước khi thanh toán');
+        }
+    }
 
 	/**
 	 * Show the form for creating a new resource.

@@ -50,8 +50,10 @@ class NguoidungController extends Controller {
         if (isset($check)) {
             \Session::put('nd_maso',$check->nd_maso);
             \Session::put('nd_loai',$check->nd_loai);
-            if ($check->nd_loai=='1')
-                return redirect('nguoiban/'.$check->nd_maso)->with('message','Đăng nhập thành công');
+            if ($check->nd_loai=='1') {
+                if ($check->nd_tinhtrang=='0') return redirect('/')->with('error-message','Tài khoản của bạn đã bị khóa! Vui lòng liên hệ với người quản trị để kích hoạt!');
+                return redirect('nguoiban')->with('message', 'Đăng nhập thành công');
+            }
             else
                 return redirect('/')->with('message','Đăng nhập thành công');
         }
@@ -90,7 +92,7 @@ class NguoidungController extends Controller {
         $nguoidung->nd_dchi = $request->input('nd_dchi');
         $nguoidung->nd_loai = $request->input('nd_loai');
         $nguoidung->nd_taikhoan = 0;
-        $nguoidung->nd_tinhtrang = 0;
+        $request->input('nd_loai')=='1'?$nguoidung->nd_tinhtrang = 0:$nguoidung->nd_tinhtrang=1;
         $nguoidung->nd_danhgia = 0;
         $request->input('nd_loai')=='1'?$nguoidung->nd_kichhoat = str_random(16):$nguoidung->nd_kichhoat = 0;
         $nguoidung->save();
@@ -104,7 +106,20 @@ class NguoidungController extends Controller {
 	 *
 	 * Route::post('nguoidung/store', 'NguoidungController@store');
 	 */
-
+    public function capnhat(Request $request)
+    {
+        if (\Session::has('nd_maso'))
+        {
+            $this->validate($request,['nd_hoten'=>'required|max:256',
+                'nd_matkhau'=>'required|max:256',
+            'nd_sdt'=>'required|max:256',
+            'nd_dchi'=>'required|max:256']);
+            Nguoidung::capnhat(\Session::get('nd_maso'),$request->input('nd_hoten'),
+                $request->input('nd_matkhau'),$request->input('nd_sdt'),$request->input('nd_dchi'));
+            return back()->with('message','Chỉnh sửa thông tin thành công');
+        }
+        return redirect('/')->with('error-message','Vui lòng đăng nhập!');
+    }
 	public function store(Request $request)
 	{
 	     $this->validate($request, [

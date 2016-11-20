@@ -12,16 +12,11 @@
     @endif
     <div class="col-sm-3">
         <div class="left-sidebar">
-    @include('thuonghieu.danhsach')
-    @include('nguoiban.danhsach')
-    @include('home.timkiem')
+    @include('nguoiban.panel')
             </div>
         </div>
     <div class="col-sm-9 padding-right">
-        <div class="features_items"><!--features_items-->
-            @if (isset($danhgia))
-                @include('home.nguoiban')
-            @endif
+        <div class="features_items">
             <h2 class="title text-center">Danh sách điện thoại</h2>
             <?php if (isset($dienthoai)): ?>
             <?php foreach ($dienthoai as $item): ?>
@@ -32,13 +27,13 @@
                             <img src="{{URL::asset('/images/product-details/'.$item->dt_hinh)}}" alt="" >
                             <h2 class="number"><?= $item->dt_gia ?></h2>
                             <p><?= $item->dt_ten ?></p>
-                            <a href="{{url('home/dienthoai/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
+                            <a href="{{url('dienthoai/chitiet/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
                         </div>
                         <div class="product-overlay">
                             <div class="overlay-content">
                             <h2 class="number"><?= $item->dt_gia ?></h2>
                             <p><?= $item->dt_ten ?></p>
-                            <a href="{{url('home/dienthoai/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
+                            <a href="{{url('dienthoai/chitiet/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
                             </div>
                         </div>
                         <?php

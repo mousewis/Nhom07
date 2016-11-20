@@ -1,5 +1,3 @@
-<div class="col-sm-3">
-    <div class="left-sidebar">
         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -39,5 +37,3 @@
                 </div>
             </div>
         </div><!--/category-products-->
-    </div>
-</div>
