@@ -38,4 +38,8 @@ class Nguoidung extends Model {
         else $nd_matkhau = md5($nd_matkhau);
         \DB::table('nguoidung')->where('nd_maso','=',$nd_maso)->update(['nd_hoten'=>$nd_hoten,'nd_matkhau'=>$nd_matkhau,'nd_sdt'=>$nd_sdt,'nd_dchi'=>$nd_dchi]);
     }
+    public static function capnhat_dt($nd_maso, $nd_taikhoan)
+    {
+        \DB::table('nguoidung')->where('nd_maso','=',$nd_maso)->update(['nd_taikhoan'=>($nd_taikhoan-10000)]);
+    }
 }

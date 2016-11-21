@@ -119,6 +119,7 @@
 <script src="{{URL::asset('js/jquery-ui.js')}}"></script>
 <script src="{{URL::asset('js/jquery.number.min.js')}}"></script>
 <script src="{{URL::asset('js/delivery.js')}}"></script>
+<script src="{{URL::asset('js/image-preview.js')}}"></script>
 <script>
     $(document).ready(function () {
 

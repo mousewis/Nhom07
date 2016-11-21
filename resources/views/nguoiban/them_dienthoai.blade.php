@@ -17,7 +17,7 @@
         </div>
     <div class="col-sm-9 padding-right text-center">
         <div class="signup-form"><!--sign up form-->
-            <h2>Thông tin tài khoản</h2>
+            <h2>Thêm điện thoại</h2>
     @include('nguoiban._dienthoai')
     </div>
         </div>

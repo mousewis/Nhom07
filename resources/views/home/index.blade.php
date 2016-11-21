@@ -29,7 +29,7 @@
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">
-                            <img src="{{URL::asset('/images/product-details/'.$item->dt_hinh)}}" alt="" >
+                            <img src="{{url('dienthoai/hinh/'.$item->dt_hinh)}}" alt="" >
                             <h2 class="number"><?= $item->dt_gia ?></h2>
                             <p><?= $item->dt_ten ?></p>
                             <a href="{{url('home/dienthoai/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>

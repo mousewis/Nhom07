@@ -20,20 +20,21 @@
             <h2 class="title text-center">Danh sách điện thoại</h2>
             <?php if (isset($dienthoai)): ?>
             <?php foreach ($dienthoai as $item): ?>
+            <?php if ($item->hdn_nguoidung==Session::get('nd_maso')): ?>
             <div class="col-sm-4">
                 <div class="product-image-wrapper">
                     <div class="single-products">
                         <div class="productinfo text-center">
-                            <img src="{{URL::asset('/images/product-details/'.$item->dt_hinh)}}" alt="" >
+                            <img src="{{url('dienthoai/hinh/'.$item->dt_hinh)}}" alt="" >
                             <h2 class="number"><?= $item->dt_gia ?></h2>
                             <p><?= $item->dt_ten ?></p>
-                            <a href="{{url('dienthoai/chitiet/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
+                            <a href="{{url('nguoiban/dienthoai/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
                         </div>
                         <div class="product-overlay">
                             <div class="overlay-content">
                             <h2 class="number"><?= $item->dt_gia ?></h2>
                             <p><?= $item->dt_ten ?></p>
-                            <a href="{{url('dienthoai/chitiet/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
+                            <a href="{{url('nguoiban/dienthoai/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
                             </div>
                         </div>
                         <?php
@@ -41,13 +42,13 @@
                         </div>
                         <div class="choose">
                             <ul class="nav nav-pills nav-justified">
-                                <li><a href="{{url('home/nguoiban/'.$item->hdn_nguoidung)}}"><i class="fa fa-user"></i><?=$item->hdn_nguoidung?></a></li>
-                                <li><a href="{{url('home/nguoiban/'.$item->hdn_nguoidung)}}"><i class="fa fa-star"></i><?=$item->nd_danhgia?>/5 (<?=$item->nd_luotdanhgia ?> lượt)</a></li>
+                                <li><i class="fa fa-plus"></i>Tồn:<?=$item->dt_sluong?></li>
+                                <li><i class="fa fa-minus"></i>Bán:<?=$item->dt_ban?></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
+            <?php endif; ?>
             <?php endforeach; ?>
         </div>
         <div class="col-sm-12 text-center">

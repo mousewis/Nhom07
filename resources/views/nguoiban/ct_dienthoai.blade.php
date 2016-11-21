@@ -12,9 +12,7 @@
     @endif
     <div class="col-sm-3">
         <div class="left-sidebar">
-            @include('thuonghieu.danhsach')
-            @include('nguoiban.danhsach')
-            @include('home.timkiem')
+            @include('nguoiban.panel');
         </div>
     </div>
     <?php if(isset($dienthoai)):?>
@@ -41,8 +39,7 @@
 							<input type="hidden" value="<?= $dienthoai->dt_maso ?>" name="dt_maso">
                             <input type="hidden" value="<?= $dienthoai->dt_ten?>" name="dt_ten">
                             <input type="hidden" value="<?= $dienthoai->dt_gia?>" name="dt_gia">
-                            <input type="number" value="1" min="1"  max="<?= $dienthoai->dt_sluong-(is_null(Cart::get($rowId))?0:Cart::get($rowId)->qty) ?>" name="dt_sluong"/>
-									<button type="submit" class="btn btn-fefault cart">
+                            		<button type="submit" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
 										Thêm vào giỏ hàng
 									</button>
@@ -50,8 +47,7 @@
 								</span>
                     <div class="choose">
                     <ul>
-                        <li><p><i class="fa fa-th-large"></i>   <b>Số lượng còn lại: </b><?= ($dienthoai->dt_sluong-(is_null(Cart::get($rowId))?0:Cart::get($rowId)->qty)>0)?($dienthoai->dt_sluong-(is_null(Cart::get($rowId))?0:Cart::get($rowId)->qty)):'HẾT HÀNG' ?></p></li>
-                        <li><p><i class="fa fa-tags"></i>   <b>Thương hiệu: </b><a href="{{url('home/thuonghieu/'.$dienthoai->th_maso)}}"><?= $dienthoai->th_ten?></a></p></li>
+                        <li><p><i class="fa fa-tags"></i>   <b>Thương hiệu: </b><a href=""><?= $dienthoai->dt_thuonghieu?></a></p></li>
                         <li><p><i class="fa fa-user"></i>   <b>Người bán: </b><a href="{{url('home/nguoiban/'.$dienthoai->hdn_nguoidung)}}"><?= $dienthoai->hdn_nguoidung?></a></p></li>
                     </ul>
                     </div>

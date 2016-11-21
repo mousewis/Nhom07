@@ -9,6 +9,6 @@ class Hoadonnhap extends Model {
 	
     public $timestamps = false;
 	
-	protected $fillable = ['hdn_nguoidung', 'hdn_tgian', 'hdn_gia'];
+	protected $fillable = ['hdn_maso','hdn_nguoidung', 'hdn_tgian', 'hdn_gia'];
 
 }
