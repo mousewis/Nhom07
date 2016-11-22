@@ -11,7 +11,7 @@
                 <div id="taikhoan" class="panel-collapse collapse">
                     <div class="panel-body">
                         <ul>
-                            <li><a href="product.php">Thông tin tài khoản</a></li>
+                            <li><a href="{{url('nguoiban')}}">Thông tin tài khoản</a></li>
                             <li><a href="product.php">Lịch sử nạp tiền</a></li>
                             <li><a href="product.php">Lịch sử giao dịch</a></li>
                         </ul>
@@ -50,8 +50,8 @@
                 <div id="sanpham" class="panel-collapse collapse">
                     <div class="panel-body">
                         <ul>
-                            <li><a href="product.php">Thông tin sản phẩm</a></li>
-                            <li><a href="product.php">Thêm sản phẩm</a></li>
+                            <li><a href="{{url('nguoiban/dienthoai')}}">Danh sách sản phẩm</a></li>
+                            <li><a href="{{url('nguoiban/dienthoai/them')}}">Thêm sản phẩm</a></li>
                         </ul>
                     </div>
                 </div>

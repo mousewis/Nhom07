@@ -36,7 +36,7 @@
                         </div>
                         <div class="product-overlay">
                             <div class="overlay-content">
-                            <h2 class="number"><?= $item->dt_gia ?></h2>
+                            <h2 class="number"><?=(int)$item->dt_sluong>0?$item->dt_gia:'HẾT HÀNG' ?></h2>
                             <p><?= $item->dt_ten ?></p>
                             <a href="{{url('home/dienthoai/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
                             </div>

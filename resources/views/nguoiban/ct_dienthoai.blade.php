@@ -26,75 +26,70 @@
                 </div>
             </div>
             <div class="col-sm-7">
-                <div class="product-information"><!--/product-information-->
-                    <h2><?= $dienthoai->dt_ten ?></h2>
-                    <p>Mã số: <?= $dienthoai->dt_maso?></p>
-                    <span>
-									<span class="number"><?= $dienthoai->dt_gia ?></span>
-						</span>
-                    <span>
-                        <form action="{{url('home/giohang/them')}}" method="post">
-                        <label>Số lượng:</label>
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<input type="hidden" value="<?= $dienthoai->dt_maso ?>" name="dt_maso">
-                            <input type="hidden" value="<?= $dienthoai->dt_ten?>" name="dt_ten">
-                            <input type="hidden" value="<?= $dienthoai->dt_gia?>" name="dt_gia">
-                            		<button type="submit" class="btn btn-fefault cart">
-										<i class="fa fa-shopping-cart"></i>
-										Thêm vào giỏ hàng
-									</button>
-                            </form>
-								</span>
+                <div class="product-information">
+                    <h2>Hóa đơn nhập</h2>
                     <div class="choose">
-                    <ul>
-                        <li><p><i class="fa fa-tags"></i>   <b>Thương hiệu: </b><a href=""><?= $dienthoai->dt_thuonghieu?></a></p></li>
-                        <li><p><i class="fa fa-user"></i>   <b>Người bán: </b><a href="{{url('home/nguoiban/'.$dienthoai->hdn_nguoidung)}}"><?= $dienthoai->hdn_nguoidung?></a></p></li>
-                    </ul>
+                        <ul>
+                            <li><p>Mã số: <?= $dienthoai->hdn_maso ?></p></li>
+                            <li><p>Thời gian: <?= $dienthoai->hdn_tgian?></p></li>
+                            <li><p>Giá: <?= $dienthoai->hdn_gia?></p></li>
+                        </ul>
                     </div>
-                    </ul>
-                    </div><!--/product-information-->
+                </div>
+                <div class="product-information"><!--/product-information-->
+                    <h2>Thông tin điện thoại</h2>
+                    <div class="choose">
+                        <ul>
+                            <li><p>Mã số: <?= $dienthoai->dt_maso?></p></li>
+                            <li><p>Tên điện thoại: <?= $dienthoai->dt_ten?></p></li>
+                            <li><p>Giá: <p class="number"><?= $dienthoai->dt_gia ?></p></p></li>
+                            <li><p>Số lượng còn lại: <?= $dienthoai->dt_sluong?></p></li>
+                            <li><p>Thương hiệu: <?= $dienthoai->th_ten?></p></li>
+                        </ul>
+                    </div>
+                    <!--/product-information-->
             </div>
         </div><!--/product-details-->
 
         <!--<div class="category-tab shop-details-tab">-->
-            <!--category-tab-->
-            <div class="component">
-                    <table>
-                        <tr>
-                            <th>Loại</th>
-                            <td><?= $dienthoai->dt_loai?></td>
-                        </tr>
-                        <tr>
-                            <th>Kích cỡ</th>
-                            <td><?= $dienthoai->dt_kco?></td>
-                        </tr>
-                        <tr>
-                            <th>Độ phân giải</th>
-                            <td><?= $dienthoai->dt_pgiai?></td>
-                        </tr>
-                        <tr>
-                            <th>Dung lượng pin</th>
-                            <td><?= $dienthoai->dt_pin?></td>
-                        </tr>
-                        <tr>
-                            <th>Hệ điều hành</th>
-                            <td><?= $dienthoai->dt_hdh?></td>
-                        </tr>
-                        <tr>
-                            <th>Dung lượng RAM</th>
-                            <td><?= $dienthoai->dt_ram?></td>
-                        </tr>
-                        <tr>
-                            <th>Bộ nhớ</th>
-                            <td><?= $dienthoai->dt_bnho?></td>
-                        </tr>
-                        <tr>
-                            <th>Camera</th>
-                            <td><?= $dienthoai->dt_cam?></td>
-                        </tr>
-                    </table>
+        <!--category-tab-->
+        <div class="component">
+            <table>
+                <tr>
+                    <th>Loại</th>
+                    <td><?= $dienthoai->dt_loai?></td>
+                </tr>
+                <tr>
+                    <th>Kích cỡ</th>
+                    <td><?= $dienthoai->dt_kco?></td>
+                </tr>
+                <tr>
+                    <th>Độ phân giải</th>
+                    <td><?= $dienthoai->dt_pgiai?></td>
+                </tr>
+                <tr>
+                    <th>Dung lượng pin</th>
+                    <td><?= $dienthoai->dt_pin?></td>
+                </tr>
+                <tr>
+                    <th>Hệ điều hành</th>
+                    <td><?= $dienthoai->dt_hdh?></td>
+                </tr>
+                <tr>
+                    <th>Dung lượng RAM</th>
+                    <td><?= $dienthoai->dt_ram?></td>
+                </tr>
+                <tr>
+                    <th>Bộ nhớ</th>
+                    <td><?= $dienthoai->dt_bnho?></td>
+                </tr>
+                <tr>
+                    <th>Camera</th>
+                    <td><?= $dienthoai->dt_cam?></td>
+                </tr>
+            </table>
 
-            </div>
+        </div>
         <!--</div><!--/category-tab-->
     </div>
     <?php endif;?>

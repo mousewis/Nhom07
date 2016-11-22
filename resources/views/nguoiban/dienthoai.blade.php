@@ -32,7 +32,7 @@
                         </div>
                         <div class="product-overlay">
                             <div class="overlay-content">
-                            <h2 class="number"><?= $item->dt_gia ?></h2>
+                            <h2 class="number"><?=(int)$item->dt_sluong>0?$item->dt_gia:'HẾT HÀNG' ?></h2>
                             <p><?= $item->dt_ten ?></p>
                             <a href="{{url('nguoiban/dienthoai/'.$item->dt_maso)}}" class="btn btn-default add-to-cart"><i class="fa fa-plus-square"></i>Xem chi tiết</a>
                             </div>
@@ -42,8 +42,8 @@
                         </div>
                         <div class="choose">
                             <ul class="nav nav-pills nav-justified">
-                                <li><i class="fa fa-plus"></i>Tồn:<?=$item->dt_sluong?></li>
-                                <li><i class="fa fa-minus"></i>Bán:<?=$item->dt_ban?></li>
+                                <li><a href="#"><i class="fa fa-plus"></i>Tồn:<?=$item->dt_sluong?></a></li>
+                                <li><a href="#"><i class="fa fa-minus"></i>Bán:<?=$item->dt_ban?></a></li>
                             </ul>
                         </div>
                     </div>
