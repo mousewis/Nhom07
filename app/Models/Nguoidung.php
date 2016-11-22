@@ -42,4 +42,13 @@ class Nguoidung extends Model {
     {
         \DB::table('nguoidung')->where('nd_maso','=',$nd_maso)->update(['nd_taikhoan'=>($nd_taikhoan-10000)]);
     }
+    public static function kichhoat($nd_maso, $nd_kichhoat)
+    {
+        $result = \DB::table('nguoidung')->where([['nd_maso','=',$nd_maso],['nd_kichhoat','=',$nd_kichhoat]])->first();
+        return $result;
+    }
+    public  static  function _kichhoat($nd_maso)
+    {
+        \DB::table('nguoidung')->where('nd_maso','=',$nd_maso)->update(['nd_tinhtrang'=>'1']);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Danhgia;
 use App\Http\Controllers\Controller;
 use App\Thuonghieu;
 use Illuminate\Http\Request;
@@ -130,5 +131,10 @@ class NguoibanController extends Controller
                 }
         }
         return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+    }
+    public function danhgia()
+    {
+        $danhgia = Danhgia::nguoimua_danhgia(\Session::get('nd_maso'));
+        return view('nguoiban.danhgia')->with(['danhgia'=>$danhgia]);
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Kichhoat;
 use Illuminate\Http\Request;
 
 use App\Nguoidung;
+use phpDocumentor\Reflection\DocBlock\Tags\See;
 
 
 class NguoidungController extends Controller {
@@ -48,17 +50,25 @@ class NguoidungController extends Controller {
         'nd_matkhau'=>'required|max:256']);
         $check = Nguoidung::_dangnhap($request->input('nd_maso'),md5($request->input('nd_matkhau')));
         if (isset($check)) {
-            \Session::put('nd_maso',$check->nd_maso);
-            \Session::put('nd_loai',$check->nd_loai);
-            if ($check->nd_loai=='1') {
-                if ($check->nd_tinhtrang=='0') return redirect('/')->with('error-message','Tài khoản của bạn đã bị khóa! Vui lòng liên hệ với người quản trị để kích hoạt!');
-                return redirect('nguoiban')->with('message', 'Đăng nhập thành công');
-            }
-            else
+            if ($check->nd_loai=='2')
+            {
+                \Session::put('nd_maso',$check->nd_maso);
+                \Session::put('nd_loai',$check->nd_loai);
                 return redirect('/')->with('message','Đăng nhập thành công');
+            }
+            if (($check->nd_loai=='1')&&($check->nd_tinhtrang=='1'))
+            {
+                \Session::put('nd_maso',$check->nd_maso);
+                \Session::put('nd_loai',$check->nd_loai);
+                return redirect('nguoiban')->with('message','Đăng nhập thành công');
+            }
+            if (($check->nd_loai=='1')&&($check->nd_tinhtrang=='0'))
+                return redirect('nguoidung/kichhoat')->with(['nd_maso'=>$check->nd_maso]);
+            if (($check->nd_loai=='1')&&($check->nd_tinhtrang=='-1'))
+                return redirect('/')->with('error-message','Tài khoản của bạn đã bị khóa! Vui lòng liên hệ với người quản trị để kích hoạt!');
+
         }
-        else
-            return back()->withInput()->with('message','Kiểm tra tên người dùng và mật khẩu');
+        return back()->withInput()->with('message','Kiểm tra tên người dùng và mật khẩu');
     }
     public function dangxuat()
     {
@@ -83,6 +93,7 @@ class NguoidungController extends Controller {
             'nd_dchi' => 'required|max:256',
             'nd_loai' => 'required|numeric',
         ]);
+        $nd_kichhoat = str_random(16);
         $nguoidung = new Nguoidung();
         $nguoidung->nd_maso = $request->input('nd_maso');
         $nguoidung->nd_email = $request->input('nd_email');
@@ -94,8 +105,13 @@ class NguoidungController extends Controller {
         $nguoidung->nd_taikhoan = 0;
         $request->input('nd_loai')=='1'?$nguoidung->nd_tinhtrang = 0:$nguoidung->nd_tinhtrang=1;
         $nguoidung->nd_danhgia = 0;
-        $request->input('nd_loai')=='1'?$nguoidung->nd_kichhoat = str_random(16):$nguoidung->nd_kichhoat = 0;
+        $request->input('nd_loai')=='1'?$nguoidung->nd_kichhoat = $nd_kichhoat:$nguoidung->nd_kichhoat = 0;
         $nguoidung->save();
+        if ($request->input('nd_loai')==1)
+            {
+                \Mail::to($request->nd_email)->send(new Kichhoat($nd_kichhoat));
+                return redirect('/')->with('message','Mã kích hoạt tài khoản được gửi đến email. Vui lòng đăng nhập và nhập mã kích hoạt để hoàn tất.');
+            }
         return redirect('/')->with('message', 'Đã đăng kí thành công!');
     }
     /**
@@ -120,107 +136,24 @@ class NguoidungController extends Controller {
         }
         return redirect('/')->with('error-message','Vui lòng đăng nhập!');
     }
-	public function store(Request $request)
-	{
-	     $this->validate($request, [
-            'nd_maso' => 'required|max:64',
-            'nd_email' => 'required|max:64',
-            'nd_matkhau' => 'required|max:256',
-            'nd_hoten' => 'required|max:256',
-            'nd_sdt' => 'required|max:256',
-            'nd_dchi' => 'required|max:256',
-            'nd_loai' => 'required|numeric',
-		 ]);
-		$nguoidung = new Nguoidung();
-		$nguoidung->nd_email = $request->input('nd_email');
-		$nguoidung->nd_matkhau = $request->input('nd_matkhau');
-		$nguoidung->nd_hoten = $request->input('nd_hoten');
-		$nguoidung->nd_sdt = $request->input('nd_sdt');
-		$nguoidung->nd_dchi = $request->input('nd_dchi');
-		$nguoidung->nd_loai = $request->input('nd_loai');
-		$nguoidung->nd_taikhoan = 0;
-		$nguoidung->nd_tinhtrang = 0;
-		$nguoidung->nd_danhgia = 0;
-		$nguoidung->nd_kichhoat = str_random(16);
-
-		$nguoidung->save();
-
-		return redirect('/')->with('message', 'Item created successfully.');
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $nd_maso
-	 * @return Response
-	 *
-	 * Route::get('nguoidung/show/{nd_maso}', 'NguoidungController@show');
-	 */
-	public function show($nd_maso)
-	{
-		$nguoidung = Nguoidung::findOrFail($nd_maso);
-
-		return view('nguoidung.show', compact('nguoidung',$nguoidung));
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $nd_maso
-	 * @return Response
-	 *
-	 * Route::get('nguoidung/edit/{nd_maso}', 'NguoidungController@edit');
-	 */
-	public function edit($nd_maso)
-	{
-		$nguoidung = Nguoidung::findOrFail($nd_maso);
-
-		return view('nguoidung.edit', compact('nguoidung',$nguoidung));
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $nd_maso
-	 * @param Request $request
-	 * @return Response
-	 *
-	 * Route::put('nguoidung/update/{nd_maso}', 'NguoidungController@update');
-	 */
-	public function update(Request $request, $nd_maso)
-	{
-		$nguoidung = Nguoidung::findOrFail($nd_maso);
-
-		$nguoidung->nd_email = $request->input('nd_email');
-		$nguoidung->nd_matkhau = $request->input('nd_matkhau');
-		$nguoidung->nd_hoten = $request->input('nd_hoten');
-		$nguoidung->nd_sdt = $request->input('nd_sdt');
-		$nguoidung->nd_dchi = $request->input('nd_dchi');
-		$nguoidung->nd_loai = $request->input('nd_loai');
-		$nguoidung->nd_taikhoan = $request->input('nd_taikhoan');
-		$nguoidung->nd_tinhtrang = $request->input('nd_tinhtrang');
-		$nguoidung->nd_danhgia = $request->input('nd_danhgia');
-		$nguoidung->nd_kichhoat = $request->input('nd_kichhoat');
-
-		$nguoidung->save();
-
-		return redirect()->route('nguoidung.index')->with('message', 'Item updated successfully.');
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $nd_maso
-	 * @return Response
-	 *
-	 * Route::get('nguoidung/delete/{nd_maso}', 'NguoidungController@destroy');
-	 */
-	public function destroy($nd_maso)
-	{
-		$nguoidung = Nguoidung::findOrFail($nd_maso);
-		$nguoidung->delete();
-
-		return redirect()->route('nguoidung.index')->with('message', 'Item deleted successfully.');
-	}
-
+    public function kichhoat()
+    {
+        if (\Session::has('nd_loai'))
+            return redirect('nguoiban');
+        return view('nguoidung.kichhoat')->with('nd_maso',\Session::get('nd_maso'));
+    }
+    public function _kichhoat(Request $request)
+    {
+        $this->validate($request,
+            ['nd_kichhoat'=>'required|max:64']);
+        $nguoidung = Nguoidung::kichhoat($request->input('nd_maso'),$request->input('nd_kichhoat'));
+        if (isset($nguoidung))
+        {
+            Nguoidung::_kichhoat($nguoidung->nd_maso);
+            \Session::put('nd_maso',$nguoidung->nd_maso);
+            \Session::put('nd_loai',$nguoidung->nd_loai);
+            return redirect('nguoiban')->with('message','Kích hoạt thành công!');
+        }
+        return back()->with(['error-message'=>'Kiểm tra lại mã kích hoạt!','nd_maso'=>$request->input('nd_maso')]);
+    }
 }

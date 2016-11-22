@@ -44,8 +44,11 @@ Route::get('nguoidung/dangnhap','NguoidungController@dangnhap');
 Route::post('nguoidung/_dangnhap','NguoidungController@_dangnhap');
 Route::get('nguoidung/dangxuat','NguoidungController@dangxuat');
 Route::post('nguoidung/capnhat','NguoidungController@capnhat');
+Route::get('nguoidung/kichhoat','NguoidungController@kichhoat');
+Route::post('nguoidung/_kichhoat','NguoidungController@_kichhoat');
 //Chức năng người bán
 Route::get('nguoiban','NguoibanController@chitiet');
+Route::get('nguoiban/danhgia','NguoibanController@danhgia');
 Route::get('nguoiban/dienthoai','NguoibanController@dienthoai');
 Route::get('nguoiban/dienthoai/them','NguoibanController@them_dienthoai');
 Route::post('nguoiban/dienthoai/luu','NguoibanController@luu_dienthoai');
