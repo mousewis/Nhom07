@@ -50,7 +50,7 @@ class NguoibanController extends Controller
     public function dienthoai()
     {
         if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')==1)) {
-            $dienthoai = Dienthoai::thongke();
+            $dienthoai = Dienthoai::thongke_nguoiban(\Session::get('nd_maso'));
             return view('nguoiban.dienthoai', compact('dienthoai', $dienthoai));
         }
         return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');

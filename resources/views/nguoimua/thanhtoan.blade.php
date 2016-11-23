@@ -110,3 +110,32 @@
 		</div>
 	</section> <!--/#cart_items-->
 @endsection
+///
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+	<input type="hidden" name="cmd" value="_xclick">
+	<input type="hidden" name="business" value="maihuynh16995-facilitator@gmail.com">
+	<input type="hidden" name="lc" value="VN">
+	<input type="hidden" name="item_name" value="N&#7841;p ti&#7873;n">
+	<input type="hidden" name="item_number" value="nd_taikhoan">
+	<input type="hidden" name="button_subtype" value="services">
+	<input type="hidden" name="no_note" value="0">
+	<input type="hidden" name="currency_code" value="USD">
+	<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest">
+	<table>
+		<tr><td><input type="hidden" name="on0" value="hdtk_gia">hdtk_gia</td></tr><tr><td><select name="os0">
+					<option value="100,000 VND">100,000 VND $5.00 USD</option>
+					<option value="200,000 VND">200,000 VND $10.00 USD</option>
+					<option value="500,000 VND">500,000 VND $25.00 USD</option>
+				</select> </td></tr>
+	</table>
+	<input type="hidden" name="currency_code" value="USD">
+	<input type="hidden" name="option_select0" value="100,000 VND">
+	<input type="hidden" name="option_amount0" value="5.00">
+	<input type="hidden" name="option_select1" value="200,000 VND">
+	<input type="hidden" name="option_amount1" value="10.00">
+	<input type="hidden" name="option_select2" value="500,000 VND">
+	<input type="hidden" name="option_amount2" value="25.00">
+	<input type="hidden" name="option_index" value="0">
+	<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+	<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
