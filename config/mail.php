@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => 'ecommerce.group7.sgu@gmail.com',
-        'name' => 'Cửa hàng điện thoại di động',
+        'name' => 'Thương mại điện tử 07',
     ],
 
     /*
@@ -84,7 +84,7 @@ return [
     |
     */
 
-    'username' => env('ecommerce.group7.sgu'),
+    'username' => env('MAIL_USERNAME'),
 
     /*
     |--------------------------------------------------------------------------
@@ -97,7 +97,7 @@ return [
     |
     */
 
-    'password' => env('thuongmaidientu07'),
+    'password' => env('MAIL_PASSWORD'),
 
     /*
     |--------------------------------------------------------------------------
@@ -111,5 +111,6 @@ return [
     */
 
     'sendmail' => '/usr/sbin/sendmail -bs',
+    'pretend' => false,
 
 ];

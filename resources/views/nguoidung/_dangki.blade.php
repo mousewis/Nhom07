@@ -29,7 +29,7 @@
 			</select>
 		</div>
 		<div class="form-group">
-			<button type="submit" class="btn btn-default col-sm-offset-5">Lưu</button>
+			<button type="submit" class="btn btn-default col-sm-offset-5">Đăng kí</button>
 		</div>
 	</fieldset>
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
