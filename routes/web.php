@@ -22,7 +22,7 @@ Route::get('home/giohang','GiohangController@chitiet');
 Route::post('home/giohang/them','GiohangController@them_giohang');
 Route::post('home/giohang/xoa','GiohangController@xoa_giohang');
 Route::get('home/thanhtoan','NguoimuaController@thanhtoan');
-Route::post('home/hoadon/them','NguoimuaController@themhoadon');
+Route::post('home/hoadon/them','NguoimuaController@_thanhtoan');
 Route::get('dienthoai/hinh/{filename}', function ($filename)
 {
     return Storage::get('images/product-details/'.$filename);

@@ -52,4 +52,9 @@ class Dienthoai extends Model {
     {
         return \DB::table('dienthoai')->join('thuonghieu','dt_thuonghieu','=','th_maso')->leftJoin('hoadonnhap','dt_hdn','=','hdn_maso')->leftJoin('cthoadon','cthd_dienthoai','=','dt_maso')->select(\DB::raw('*,ifnull(sum(cthd_soluong),0) as dt_ban'))->where('hdn_nguoidung','=',$nd_maso)->groupBy('dt_maso')->orderBy('hdn_tgian')->paginate(1,['*'],'page_tk');
     }
+    public static function them_hoadon($cthd_dienthoai,$cthd_soluong)
+    {
+        $dt_sluong = \DB::table('dienthoai')->where('dt_maso','=',$cthd_dienthoai)->value('dt_sluong');
+        \DB::table('dienthoai')->where('dt_maso','=',$cthd_dienthoai)->update(['dt_sluong'=>($dt_sluong-$cthd_soluong)]);
+    }
 }

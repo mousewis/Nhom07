@@ -72,7 +72,7 @@
 							<ul>
 								<li style="color: #D62617;font-size:22px;">Tổng <span><?= Cart::total() ?></span></li>
 							</ul>
-							<a style="margin-left: 45%" class="btn btn-primary" href="checkout.php">Thanh toán</a>
+							<a style="margin-left: 45%" class="btn btn-primary" href="{{url('home/thanhtoan')}}">Thanh toán</a>
 						</div>
 					</div>
 				</div>

@@ -12,16 +12,13 @@
     @endif
     <div class="col-sm-3">
         <div class="left-sidebar">
-    @include('nguoimua.panel')
-    </div>
+        @include('nguoiban.panel')
+            </div>
         </div>
-
-    <?php if (isset($nguoimua)): ?>
     <div class="col-sm-9 padding-right text-center">
         <div class="signup-form"><!--sign up form-->
-            <h2>Thông tin tài khoản</h2>
-    @include('nguoimua._taikhoan')
+            <h2>Thêm điện thoại</h2>
+    @include('nguoiban._dienthoai')
     </div>
         </div>
-    <?php endif; ?>
 @endsection

@@ -95,13 +95,32 @@
 						</div>
 					</div>
 					<div class="row">
-
-						<div class="col-sm-12">
-							<div class="total_area">
-								<input type="hidden" name="_token" value="{{ csrf_token() }}">
-								<button type="submit" class="btn btn-primary col-sm-offset-6">Thanh toán</button>
-							</div>
-						</div>
+                            <div class="step-one">
+                                <h2 class="heading">Vui lòng chọn phương thức thanh toán</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="shopper-info payment1">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <button type="submit" width="70%" height="50" class="btn btn-primary">
+                                            <img src="{{URL::asset('images/shop/payment5.png')}}" width="50" height="50">
+                                            Thanh toán tiền mặt khi nhận hàng
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1 ">
+                                    <div class="shopper-info" style="margin-left:8px;">
+                                        <p style="color: #fff;margin-top:23px;" class="or">Hoặc</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="shopper-info payment2">
+                                        <a href="#" class="btn btn-primary" disabled="disabled"><img src="{{URL::asset('images/shop/payment3.png')}}" width="50" height="50">
+                                            <span>Thanh toán online</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
 					</div>
 				</form>
 			</div>
@@ -110,8 +129,8 @@
 		</div>
 	</section> <!--/#cart_items-->
 @endsection
-///
-<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+
+<!--<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 	<input type="hidden" name="cmd" value="_xclick">
 	<input type="hidden" name="business" value="maihuynh16995-facilitator@gmail.com">
 	<input type="hidden" name="lc" value="VN">
@@ -139,3 +158,4 @@
 	<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 	<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
+-->

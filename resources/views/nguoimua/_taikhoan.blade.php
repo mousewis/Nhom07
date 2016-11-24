@@ -10,7 +10,7 @@
 @if (isset($nguoimua))
 	<table>
 		<tr>
-			<th><i class="fa fa-user"></i> Tên người bán:</th>
+			<th><i class="fa fa-user"></i> Tên người mua:</th>
 			<td colspan="3"><?= $nguoimua->nd_maso ?></td>
 		</tr>
 		<tr>
@@ -46,7 +46,7 @@
 					<th><i class="fa fa-home"></i> Địa chỉ</th>
 					<td>
 						<input type="text" name="nd_dchi" required='required' class="col-md-4 form-control"
-							   placeholder="Địa chỉ" value="<?= $nguoimmua->nd_dchi?>">
+							   placeholder="Địa chỉ" value="<?= $nguoimua->nd_dchi?>">
 					</td>
 				</tr>
 			</table>

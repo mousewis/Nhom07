@@ -9,6 +9,6 @@ class Hoadon extends Model {
 	
     public $timestamps = false;
 	
-	protected $fillable = ['hd_nguoimua','hd_nguoinhan', 'hd_tinhtrang', 'hd_gia', 'hd_tgian', 'hd_dchi', 'hd_sdt'];
+	protected $fillable = ['hd_maso','hd_nguoimua','hd_nguoinhan', 'hd_tinhtrang', 'hd_gia', 'hd_tgian', 'hd_dchi', 'hd_sdt'];
 
 }

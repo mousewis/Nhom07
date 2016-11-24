@@ -30,5 +30,5 @@
 	</fieldset>
 </form>
 <?php else: ?>
-	<a href="/">Click vào đây để trở lại trang chủ</a>
+	<a href="{{url('/')}}">Click vào đây để trở lại trang chủ</a>
 <?php endif;  ?>

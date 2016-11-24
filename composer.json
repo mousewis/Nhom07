@@ -12,7 +12,8 @@
         "laravelcollective/html":"^5.3.0",
         "reliese/laravel": "^0.0.11",
         "scaffolds/builder": "dev-master",
-        "gloudemans/shoppingcart": "^2.2"
+        "gloudemans/shoppingcart": "^2.2",
+        "paypal/rest-api-sdk-php": "^1.10"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

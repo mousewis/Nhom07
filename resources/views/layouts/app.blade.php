@@ -63,7 +63,7 @@
                                 <li><a href="{{(Session::get('nd_loai')==1)?url('nguoiban'):url('nguoimua')}}"><i class="fa fa-user"></i> Tài khoản</a></li>
                                 {{--<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>--}}
                                 <?php if(Session::get('nd_loai')=='2'):?>
-                                    <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
+                                    <li><a href="{{url('home/thanhtoan')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
                                     <li>
                                         <ol class="breadcrumb">
                                         <li><a href="{{url('home/giohang')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>

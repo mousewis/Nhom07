@@ -9,6 +9,6 @@ class Cthoadon extends Model {
 	
     public $timestamps = false;
 	
-	protected $fillable = ['cthd_maso','cthd_hoadon','cthd_dienthoai','cthd_soluong', 'cthd_gia', 'cthd_tinhtrang'];
+	protected $fillable = ['cthd_hoadon','cthd_dienthoai','cthd_soluong', 'cthd_gia', 'cthd_tinhtrang'];
 
 }

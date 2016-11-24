@@ -140,7 +140,9 @@ class NguoidungController extends Controller {
     {
         if (\Session::has('nd_loai'))
             return redirect('nguoiban');
-        return view('nguoidung.kichhoat')->with('nd_maso',\Session::get('nd_maso'));
+        if (!session('nd_maso'))
+            return redirect('/')->with('error-message','Bạn không có quyền truy cập trang này!');
+        return view('nguoidung.kichhoat')->with('nd_maso',session('nd_maso'));
     }
     public function _kichhoat(Request $request)
     {
