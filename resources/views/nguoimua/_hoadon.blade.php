@@ -7,53 +7,53 @@
 		</ul>
 	</div>
 @endif
-@if (isset($nguoimua))
+@if (isset($hoadon))
 	<table>
 		<tr>
-			<th><i class="fa fa-user"></i> Tên người mua:</th>
-			<td colspan="3"><?= $nguoimua->nd_maso ?></td>
+			<th><i class="fa fa-info-circle"></i> Mã đơn hàng</th>
+			<th><i class="fa fa-clock-o"></i> Thời gian</th>
+			<th><i class="fa fa-user"></i> Người nhận</th>
+			<th><i class="fa fa-dollar"></i> Tổng tiền</th>
+			<th><i class="fa fa-star"></i> Tình trạng</th>
+			<th><i class="fa fa-unlock"></i> Xem chi tiết</th>
 		</tr>
-		<tr>
-			<th><i class="fa fa-inbox"></i> Email</th>
-			<td colspan="3"><?= $nguoimua->nd_email?></td>
+		@foreach($hoadon as $item)
+		<br>
+			<td><?= $item->hd_maso ?></td>
+			<td><?= $item->hd_tgian ?></td>
+			<td>
+				<?= $item->hd_nguoinhan ?></br>
+					<?= $item->hd_dchi ?></br>
+					<?= $item->hd_sdt ?>
+			</td>
+		<td><?= $item->hd_gia?></td>
+		<td><?php switch($item->hd_tinhtrang)
+				{
+				case '-1': echo 'Đã hủy';
+					break;
+				case '0': echo 'Đang xử lý';
+					break;
+				case '1':echo 'Đã xác nhận';
+					break;
+				case '2':echo 'Hoàn tất';
+					break;
+			}
+			?>
+		</td>
+		<td>
+			<a href="{{url('nguoimua/hoadon/'.$item->hd_maso)}}">Chi tiết</a>
+		</td>
 		</tr>
+		@endforeach
+<tr>
+	<td colspan="6">
+		<div class="col-sm-12 text-center">
+			<ul class="pagination">
+				{!! $hoadon->appends(Request::input())->links() !!}
+			</ul>
+		</div>
+	</td>
+</tr>
 	</table>
-	<form action="<?= url('nguoidung/capnhat') ?>" method="POST" class="form-horizontal">
-		<fieldset>
-			<table>
-				<tr>
-					<th><i class="fa fa-lock"></i> Mật khẩu</th>
-					<td>
-						<input type="password" name="nd_matkhau" required='required' class="col-md-4 form-control"
-							   placeholder="Mật khẩu" value="<?=$nguoimua->nd_matkhau ?>">
-					</td>
-				</tr>
-				<tr>
-					<th><i class="fa fa-info"></i> Họ tên</th>
-					<td>
-						<input type="text" name="nd_hoten" required='required' class="col-md-4 form-control"
-							   placeholder="Họ tên" value="<?= $nguoimua->nd_hoten?>">
-					</td>
-				</tr>
-				<tr>
-					<th><i class="fa fa-phone"></i> Số điện thoại</th>
-					<td>
-						<input type="text" name="nd_sdt" required='required' class="col-md-4 form-control"
-							   placeholder="Số điện thoại" value="<?= $nguoimua->nd_sdt?>">
-					</td>
-				</tr>
-				<tr>
-					<th><i class="fa fa-home"></i> Địa chỉ</th>
-					<td>
-						<input type="text" name="nd_dchi" required='required' class="col-md-4 form-control"
-							   placeholder="Địa chỉ" value="<?= $nguoimua->nd_dchi?>">
-					</td>
-				</tr>
-			</table>
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<div class="form-group">
-				<button type="submit" class="btn btn-default col-sm-offset-5">Lưu</button>
-			</div>
-		</fieldset>
-	</form>
+
 @endif

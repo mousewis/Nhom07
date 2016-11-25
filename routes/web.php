@@ -37,6 +37,8 @@ Route::get('dienthoai/hinh/{filename}', function ($filename)
 });
 //Người mua
 Route::get('nguoimua','NguoimuaController@chitiet');
+Route::get('nguoimua/hoadon','NguoimuaController@hoadon');
+Route::get('nguoimua/hoadon/{hd_maso}','NguoimuaController@cthoadon');
 //Chức năng người dùng (đăng kí, đăng nhập, sửa thông tin cơ bản)
 Route::get('nguoidung/dangki','NguoidungController@dangki');
 Route::post('nguoidung/_dangki','NguoidungController@_dangki');

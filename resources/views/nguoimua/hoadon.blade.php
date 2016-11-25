@@ -20,7 +20,7 @@
     <div class="col-sm-9 padding-right text-center">
         <div class="signup-form"><!--sign up form-->
             <h2>Danh sách đơn hàng</h2>
-    @include('nguoimua._taikhoan')
+            @include('nguoimua._hoadon')
     </div>
         </div>
     <?php endif; ?>

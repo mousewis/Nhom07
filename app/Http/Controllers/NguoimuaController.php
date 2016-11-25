@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Hoadonnhap;
 use App\Http\Controllers\Controller;
 use App\Nguoidung;
 use App\Thuonghieu;
@@ -73,7 +74,10 @@ class NguoimuaController extends Controller
             $hd_maso = date('YmdHisu');
             $hd_nguoimua = \Session::get('nd_maso');
             $hd_nguoinhan = ($request->input('type')=='0')?($request->input('nd_hoten')):($request->input('hd_nguoinhan'));
-            $hd_tinhtrang = 0;
+            $hd_soluong = Cart::content()->groupBy('id')->count();
+            $hd_xuly = 0;
+            $hd_hoantat = 0;
+            $hd_huy = 0;
             $hd_gia = Cart::total_value();
             $hd_tgian = date('Y-m-d');
             $hd_dchi = ($request->input('type')=='0')?($request->input('nd_dchi')):($request->input('hd_dchi'));
@@ -82,7 +86,10 @@ class NguoimuaController extends Controller
             $hoadon->hd_maso = $hd_maso;
             $hoadon->hd_nguoimua = $hd_nguoimua;
             $hoadon->hd_nguoinhan = $hd_nguoinhan;
-            $hoadon->hd_tinhtrang = $hd_tinhtrang;
+            $hoadon->hd_soluong = $hd_soluong;
+            $hoadon->hd_xuly = $hd_xuly;
+            $hoadon->hd_hoantat = $hd_hoantat;
+            $hoadon->hd_huy = $hd_huy;
             $hoadon->hd_gia = $hd_gia;
             $hoadon->hd_tgian = $hd_tgian;
             $hoadon->hd_dchi = $hd_dchi;
@@ -107,12 +114,24 @@ class NguoimuaController extends Controller
             return redirect('/')->with('error-message','Vui lòng đăng nhập và thêm sản phẩm vào giỏ hàng trước khi thanh toán');
         }
     }
-    public function hoadon()
+    public function hoadon(Request $request)
     {
         if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='2'))
         {
-            $nguoimua = Nguoidung::chitiet_nguoimua(\Session::get('nd_maso'));
-            return view('nguoimua.thanhtoan',compact('nguoimua',$nguoimua));
+            $hoadon = Hoadon::nguoimua(\Session::get('nd_maso'),$request->input('hd_tinhtrang'));
+            return view('nguoimua.hoadon',compact('hoadon',$hoadon));
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+        }
+    }
+    public function cthoadon($hd_maso)
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='2'))
+        {
+            $cthoadon = Hoadon::nguoimua_cthd($hd_maso);
+            return view('nguoimua.ct_hoadon',compact('cthoadon',$cthoadon));
         }
         else
         {

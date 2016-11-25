@@ -28,10 +28,10 @@
                 <div id="donhang" class="panel-collapse collapse">
                     <div class="panel-body">
                         <ul>
-                            <li><a href="product.php">Lịch sử giao dịch</a></li>
-                            <li><a href="product.php">Đang xử lý</a></li>
-                            <li><a href="product.php">Đã hoàn tất</a></li>
-                            <li><a href="product.php">Đã hủy</a></li>
+                            <li><a href="{{url('nguoimua/hoadon')}}">Lịch sử giao dịch</a></li>
+                            <li><a href="{{url('nguoimua/hoadon?hd_tinhtrang=0')}}">Đang xử lý</a></li>
+                            <li><a href="{{url('nguoimua/hoadon?hd_tinhtrang=1')}}">Đã hoàn tất</a></li>
+                            <li><a href="{{url('nguoimua/hoadon?hd_tinhtrang=-1')}}">Đã hủy</a></li>
                         </ul>
                     </div>
                 </div>
