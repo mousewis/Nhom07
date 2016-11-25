@@ -142,7 +142,7 @@ class NguoimuaController extends Controller
     public function danhgia()
     {
         if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='2')) {
-            $danhgia = Danhgia::nguoimua(\Session::get('nd_maso'));
+            $danhgia = Danhgia::nguoimua_danhgia(\Session::get('nd_maso'));
             return view('nguoimua.danhgia')->with('danhgia',$danhgia);
         }
         else
@@ -150,14 +150,32 @@ class NguoimuaController extends Controller
             return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
         }
     }
-    public function _danhgia(Request $request)
+    public function them_danhgia()
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='2')) {
+            $danhgia = Danhgia::nguoimua(\Session::get('nd_maso'));
+            return view('nguoimua.them_danhgia')->with('danhgia',$danhgia);
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+        }
+    }
+    public function luu_danhgia(Request $request)
     {
         if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='2')) {
             $this->validate($request, [
                 'dg_diem' => 'required',
             ]);
-
-            return view('nguoimua.danhgia')->with('message','Thêm đánh giá thành công!');
+            $danhgia = new Danhgia();
+            $danhgia->dg_hoadon = $request->input('dg_hoadon');
+            $danhgia->dg_tgian = date('Y-m-d');
+            $danhgia->dg_nguoimua = \Session::get('nd_maso');
+            $danhgia->dg_nguoiban = $request->input('dg_nguoiban');
+            $danhgia->dg_diem = $request->input('dg_diem');
+            $danhgia->save();
+            Danhgia::capnhat_nguoiban($request->input('dg_nguoiban'));
+            return redirect('nguoimua/danhgia/them')->with('message','Thêm đánh giá thành công!');
         }
         else
         {

@@ -9,7 +9,7 @@ class Danhgia extends Model {
 	
     public $timestamps = false;
 	
-	protected $fillable = ['dg_nguoimua', 'dg_nguoiban', 'dg_diem'];
+	protected $fillable = ['dg_hoadon','dg_tgian','dg_nguoimua', 'dg_nguoiban', 'dg_diem'];
     public static function luot_danhgia($nd_maso)
     {
         $result = \DB::table('danhgia')->where('dg_nguoiban','=',$nd_maso)->count('*');
@@ -17,7 +17,12 @@ class Danhgia extends Model {
     }
     public static function nguoimua_danhgia($nd_maso)
     {
-        $result = \DB::table('danhgia')->where('dg_nguoiban','=',$nd_maso)->paginate(1,['*'],'page_dg');
+        $result = \DB::table('danhgia')->where('dg_nguoimua','=',$nd_maso)->paginate(10,['*'],'page_dg');
+        return $result;
+    }
+    public static function nguoiban_danhgia($nd_maso)
+    {
+        $result = \DB::table('danhgia')->where('dg_nguoiban','=',$nd_maso)->paginate(10,['*'],'page_dg');
         return $result;
     }
     public static function nguoimua($nd_maso)
@@ -26,9 +31,20 @@ class Danhgia extends Model {
                         left join dienthoai on cthd_dienthoai = dt_maso
                         left join hoadonnhap on hdn_maso = dt_maso
                         left join nguoidung on hdn_nguoidung = nd_maso
-                        left JOIN danhgia on dg_nguoimua = hd_nguoimua
-                        where hd_nguoimua='" .$nd_maso. "'
-                        group by hoadon"))->get();
+                        left JOIN danhgia on dg_hoadon = hd_maso
+                        where hd_nguoimua='" .$nd_maso. "' and cthd_tinhtrang = 2
+                        group by hoadon"));
+    }
+    public static function capnhat_nguoiban($dg_nguoiban)
+    {
+        $luot_danhgia = \DB::table('nguoidung')->where('nd_maso','=',$dg_nguoiban)->value('nd_luotdanhgia')+1;
+        $tong_danhgia = \DB::table('danhgia')->where('dg_nguoiban','=',$dg_nguoiban)->sum('dg_diem');
+        \DB::table('nguoidung')->where('nd_maso','=',$dg_nguoiban)->update(['nd_luotdanhgia'=>($luot_danhgia),'nd_danhgia'=>number_format($tong_danhgia/$luot_danhgia,1)]);
+        if (($luot_danhgia > 5)&& ($tong_danhgia/$luot_danhgia <= 2))
+            {
+                \DB::table('nguoidung')->where('nd_maso','=',$dg_nguoiban)->update(['nd_tinhtrang'=>'-1']);
+                \DB::table('taikhoan')->insert(['tk_nguoidung'=>$dg_nguoiban,'tk_noidung'=>'-1','tk_ghichu'=>'Low Rate','tk_tgian'=>date('Y-m-d')]);
+            }
     }
 
 }

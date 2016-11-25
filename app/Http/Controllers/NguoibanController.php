@@ -134,7 +134,7 @@ class NguoibanController extends Controller
     }
     public function danhgia()
     {
-        $danhgia = Danhgia::nguoimua_danhgia(\Session::get('nd_maso'));
+        $danhgia = Danhgia::nguoiban_danhgia(\Session::get('nd_maso'));
         return view('nguoiban.danhgia')->with(['danhgia'=>$danhgia]);
     }
 }
