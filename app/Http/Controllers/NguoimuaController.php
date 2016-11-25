@@ -74,7 +74,7 @@ class NguoimuaController extends Controller
             $hd_nguoimua = \Session::get('nd_maso');
             $hd_nguoinhan = ($request->input('type')=='0')?($request->input('nd_hoten')):($request->input('hd_nguoinhan'));
             $hd_tinhtrang = 0;
-            $hd_gia = (int)Cart::total();
+            $hd_gia = Cart::total_value();
             $hd_tgian = date('Y-m-d');
             $hd_dchi = ($request->input('type')=='0')?($request->input('nd_dchi')):($request->input('hd_dchi'));
             $hd_sdt = ($request->input('type')=='0')?($request->input('nd_sdt')):($request->input('hd_sdt'));
@@ -105,6 +105,18 @@ class NguoimuaController extends Controller
         else
         {
             return redirect('/')->with('error-message','Vui lòng đăng nhập và thêm sản phẩm vào giỏ hàng trước khi thanh toán');
+        }
+    }
+    public function hoadon()
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='2'))
+        {
+            $nguoimua = Nguoidung::chitiet_nguoimua(\Session::get('nd_maso'));
+            return view('nguoimua.thanhtoan',compact('nguoimua',$nguoimua));
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
         }
     }
 }
