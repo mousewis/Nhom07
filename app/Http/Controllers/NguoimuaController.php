@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Danhgia;
 use App\Hoadonnhap;
 use App\Http\Controllers\Controller;
 use App\Nguoidung;
@@ -132,6 +133,31 @@ class NguoimuaController extends Controller
         {
             $cthoadon = Hoadon::nguoimua_cthd($hd_maso);
             return view('nguoimua.ct_hoadon',compact('cthoadon',$cthoadon));
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+        }
+    }
+    public function danhgia()
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='2')) {
+            $danhgia = Danhgia::nguoimua(\Session::get('nd_maso'));
+            return view('nguoimua.danhgia')->with('danhgia',$danhgia);
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+        }
+    }
+    public function _danhgia(Request $request)
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='2')) {
+            $this->validate($request, [
+                'dg_diem' => 'required',
+            ]);
+
+            return view('nguoimua.danhgia')->with('message','Thêm đánh giá thành công!');
         }
         else
         {

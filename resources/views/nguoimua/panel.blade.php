@@ -30,7 +30,8 @@
                         <ul>
                             <li><a href="{{url('nguoimua/hoadon')}}">Lịch sử giao dịch</a></li>
                             <li><a href="{{url('nguoimua/hoadon?hd_tinhtrang=0')}}">Đang xử lý</a></li>
-                            <li><a href="{{url('nguoimua/hoadon?hd_tinhtrang=1')}}">Đã hoàn tất</a></li>
+                            <li><a href="{{url('nguoimua/hoadon?hd_tinhtrang=1')}}">Đã xác nhận</a></li>
+                            <li><a href="{{url('nguoimua/hoadon?hd_tinhtrang=2')}}">Đã hoàn tất</a></li>
                             <li><a href="{{url('nguoimua/hoadon?hd_tinhtrang=-1')}}">Đã hủy</a></li>
                         </ul>
                     </div>

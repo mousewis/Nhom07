@@ -12,7 +12,7 @@
     @endif
     <div class="col-sm-3">
         <div class="left-sidebar">
-            @include('nguoimua.panel')
+            @include('nguoiban.panel')
         </div>
     </div>
 
