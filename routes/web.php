@@ -54,6 +54,9 @@ Route::post('nguoidung/_kichhoat','NguoidungController@_kichhoat');
 //Chức năng người bán
 Route::get('nguoiban','NguoibanController@chitiet');
 Route::get('nguoiban/danhgia','NguoibanController@danhgia');
+Route::get('nguoiban/hoadon','NguoibanController@hoadon');
+Route::post('nguoiban/hoadon/capnhat','NguoibanController@capnhat_hoadon');
+Route::get('nguoiban/hoadon/{hd_maso}','NguoibanController@cthoadon');
 Route::get('nguoiban/dienthoai','NguoibanController@dienthoai');
 Route::get('nguoiban/dienthoai/them','NguoibanController@them_dienthoai');
 Route::post('nguoiban/dienthoai/luu','NguoibanController@luu_dienthoai');

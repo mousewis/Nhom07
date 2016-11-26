@@ -12,8 +12,9 @@
                     <div class="panel-body">
                         <ul>
                             <li><a href="{{url('nguoiban')}}">Thông tin tài khoản</a></li>
+                            <li><a href="{{url('nguoiban/danhgia')}}">Đánh giá của người mua</a></li>
+                            <li><a href="product.php">Nạp tiền vào tài khoản</a></li>
                             <li><a href="product.php">Lịch sử nạp tiền</a></li>
-                            <li><a href="product.php">Lịch sử giao dịch</a></li>
                         </ul>
                     </div>
                 </div>
@@ -30,10 +31,11 @@
                 <div id="donhang" class="panel-collapse collapse">
                     <div class="panel-body">
                         <ul>
-                            <li><a href="product.php">Lịch sử giao dịch</a></li>
-                            <li><a href="product.php">Đang xử lý</a></li>
-                            <li><a href="product.php">Đã hoàn tất</a></li>
-                            <li><a href="product.php">Đã hủy</a></li>
+                            <li><a href="{{url('nguoiban/hoadon')}}">Lịch sử đặt hàng</a></li>
+                            <li><a href="{{url('nguoiban/hoadon?hd_tinhtrang=0')}}">Đang xử lý</a></li>
+                            <li><a href="{{url('nguoiban/hoadon?hd_tinhtrang=1')}}">Đã xác nhận</a></li>
+                            <li><a href="{{url('nguoiban/hoadon?hd_tinhtrang=2')}}">Đã hoàn tất</a></li>
+                            <li><a href="{{url('nguoiban/hoadon?hd_tinhtrang=-1')}}">Đã hủy</a></li>
                         </ul>
                     </div>
                 </div>

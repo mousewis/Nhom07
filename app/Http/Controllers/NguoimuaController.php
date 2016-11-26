@@ -102,7 +102,7 @@ class NguoimuaController extends Controller
                 $cthoadon->cthd_hoadon = $hd_maso;
                 $cthoadon->cthd_dienthoai = $item->id;
                 $cthoadon->cthd_soluong = $item->qty;
-                $cthoadon->cthd_gia = $item->price;
+                $cthoadon->cthd_gia = $item->total;
                 $cthoadon->cthd_tinhtrang = 0;
                 $cthoadon->save();
                 Dienthoai::them_hoadon($item->id,$item->qty);
@@ -182,4 +182,5 @@ class NguoimuaController extends Controller
             return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
         }
     }
+
 }

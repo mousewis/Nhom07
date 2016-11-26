@@ -20,21 +20,6 @@
     <div class="col-sm-9 padding-right">
         <div class="signup-form"><!--sign up form-->
             <h2>Hóa đơn <?=$cthoadon[0]->hd_maso ?></h2>
-            <h4>Tình trạng:
-                <?php
-                echo ($cthoadon[0]->hd_hoantat == ($cthoadon[0]->hd_soluong - $cthoadon[0]->hd_huy))?'ĐÃ HOÀN TẤT':'';
-                echo ($cthoadon[0]->hd_xuly == ($cthoadon[0]->hd_soluong - $cthoadon[0]->hd_huy - $cthoadon[0]->hd_hoantat))?'ĐÃ XÁC NHẬN':'';
-                echo (($cthoadon[0]->hd_soluong - $cthoadon[0]->hd_huy - $cthoadon[0]->hd_hoantat - $cthoadon[0]->hd_xuly) >0)?'ĐANG XỬ LÝ':'';
-                echo ($cthoadon[0]->hd_huy == $cthoadon[0]->hd_soluong)?'ĐÃ HỦY':'';
-                ?>
-                </p>
-                </br>
-                <?php
-                echo ($cthoadon[0]->hd_xuly>0)?'Đã xử lý: '.$cthoadon[0]->hd_xuly.'</br>':'';
-                echo ($cthoadon[0]->hd_hoantat>0)?'Đã hoàn tất: '.$cthoadon[0]->hd_xuly.'</br>':'';
-                echo ($cthoadon[0]->hd_xuly>0)?'Đã hủy: '.$cthoadon[0]->hd_huy.'</br>':'';
-                ?>
-            </h4>
             <div class="step-one">
                 <h2 class="heading">Thông tin sản phẩm</h2>
             </div>
@@ -47,8 +32,8 @@
                             <th>Giá</th>
                             <th>Số lượng</th>
                             <th>Tổng</th>
-                            <th>Người bán</th>
                             <th>Tình trạng</th>
+                            <th>Tùy chọn</th>
                         </tr>
                         <?php foreach ($cthoadon as $item):?>
                         <tr>
@@ -60,12 +45,6 @@
                             <td><p class="number"><?= $item->dt_gia ?></p></td>
                             <td><p class="number"><?= $item->cthd_soluong ?></p></td>
                             <td><p class="number"><?= $item->cthd_gia ?></p></td>
-                            <td>
-                                <a href="{{url('home/nguoiban/'.$item->nd_maso)}}"><?= $item->nd_hoten?></a>
-                                </br><?= $item->nd_dchi ?>
-                                </br><?= $item->nd_sdt ?>
-                                </br>Đánh giá:<?= $item->nd_danhgia?>/5
-                            </td>
                             <td>
                                 <?php switch($item->cthd_tinhtrang)
                                 {
@@ -80,12 +59,32 @@
                                 }
                                 ?>
                             </td>
+                            <td>
+                                <?php
+                                if ($item->cthd_tinhtrang=='-1')
+                                    echo '';
+                                if ($item->cthd_tinhtrang=='2')
+                                    echo '';
+                                ?>
+                                <?php if (($item->cthd_tinhtrang=='0')||($item->cthd_tinhtrang=='1')): ?>
+                                <form action="{{url('nguoiban/hoadon/capnhat')}}" method="post">
+                                    <input type="hidden" name="cthd_hoadon" value="<?= $item->cthd_hoadon?>">
+                                    <input type="hidden" name="cthd_maso" value="<?=$item->cthd_maso ?>">
+                                    <input type="hidden" name="cthd_tinhtrang" value="<?=($item->cthd_tinhtrang=='0')?'1':'2' ?>">
+                                    <button type="submit"><?=($item->cthd_tinhtrang=='0')?'XÁC NHẬN':'HOÀN TẤT' ?></button>';
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                </form>
+                                <form action="{{url('nguoiban/hoadon/capnhat')}}" method="post">
+                                    <input type="hidden" name="cthd_hoadon" value="<?= $item->cthd_hoadon?>">
+                                    <input type="hidden" name="cthd_maso" value="<?=$item->cthd_maso ?>">
+                                    <input type="hidden" name="cthd_tinhtrang" value="-1">
+                                    <button type="submit">HỦY</button>';
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                </form>
+                                <?php endif; ?>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
-                        <tr class="table table-condensed total-result">
-                            <td colspan="4" align="right" style="color: #D62617;font-size:22px;">Tổng cộng</td>
-                            <td colspan="3" align="left" class="cart_total_price"><p class="number"><?= $cthoadon[0]->hd_gia?></p></td>
-                        </tr>
                     </table>
                 </div>
             </section>
@@ -96,6 +95,10 @@
                 <div class="table-responsive cart_info">
                     <div class="shopper-info">
                         <table>
+                            <tr>
+                                <th>Người mua</th>
+                                <td><?= $cthoadon[0]->hd_nguoimua ?></td>
+                            </tr>
                             <tr>
                                 <th>Người nhận</th>
                                 <td><?= $cthoadon[0]->hd_nguoinhan ?></td>

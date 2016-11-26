@@ -26,7 +26,7 @@
         <tr>
             <th><i class="fa fa-star"></i> Điểm đánh giá</th>
             <td><h3><?= $nguoiban->nd_danhgia ?>/5</h3></td>
-            <td colspan="2"><a href="">Xem chi tiết</a></td>
+            <td colspan="2"><a href="{{url('nguoiban/danhgia')}}">Xem chi tiết</a></td>
         </tr>
     </table>
     <form action="<?= url('nguoidung/capnhat') ?>" method="POST" class="form-horizontal">

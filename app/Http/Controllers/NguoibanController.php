@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Nguoidung;
 use App\Dienthoai;
 use App\Hoadonnhap;
+use App\Hoadon;
+use App\Cthoadon;
 use Illuminate\Support\Facades\Input;
 
 /**
@@ -136,5 +138,41 @@ class NguoibanController extends Controller
     {
         $danhgia = Danhgia::nguoiban_danhgia(\Session::get('nd_maso'));
         return view('nguoiban.danhgia')->with(['danhgia'=>$danhgia]);
+    }
+    public function hoadon(Request $request)
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='1'))
+        {
+            $hoadon = Hoadon::nguoiban(\Session::get('nd_maso'),$request->input('hd_tinhtrang'),$request->input('col'),$request->input('type'),$request->input('hd_tgian_tu'),$request->input('hd_tgian_den'),$request->input('hd_dchi'),$request->input('cthd_tinhtrang'));
+            return view('nguoiban.hoadon',compact('hoadon',$hoadon));
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+        }
+    }
+    public function capnhat_hoadon(Request $request)
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='1'))
+        {
+            Hoadon::capnhat_cthd($request->input('cthd_maso'),$request->input('cthd_tinhtrang'),$request->input('cthd_hoadon'));
+            return redirect('nguoiban/hoadon')->with('message','Cập nhật tình trạng thành công');
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+        }
+    }
+    public function cthoadon($hd_maso)
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='1'))
+        {
+            $cthoadon = Hoadon::nguoiban_cthd(\Session::get('nd_maso'),$hd_maso);
+            return view('nguoiban.ct_hoadon',compact('cthoadon',$cthoadon));
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+        }
     }
 }
