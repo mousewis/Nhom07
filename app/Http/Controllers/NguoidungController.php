@@ -50,6 +50,8 @@ class NguoidungController extends Controller {
         'nd_matkhau'=>'required|max:256']);
         $check = Nguoidung::_dangnhap($request->input('nd_maso'),md5($request->input('nd_matkhau')));
         if (isset($check)) {
+            if ($check->nd_tinhtrang=='-1')
+                return redirect('/')->with('error-message','Tài khoản của bạn đã bị khóa! Vui lòng liên hệ với người quản trị để kích hoạt!');
             if ($check->nd_loai=='2')
             {
                 \Session::put('nd_maso',$check->nd_maso);
@@ -64,7 +66,7 @@ class NguoidungController extends Controller {
             }
             if (($check->nd_loai=='1')&&($check->nd_tinhtrang=='0'))
                 return redirect('nguoidung/kichhoat')->with(['nd_maso'=>$check->nd_maso]);
-            if (($check->nd_loai=='1')&&($check->nd_tinhtrang=='-1'))
+            if ($check->nd_tinhtrang=='-1')
                 return redirect('/')->with('error-message','Tài khoản của bạn đã bị khóa! Vui lòng liên hệ với người quản trị để kích hoạt!');
 
         }
@@ -158,4 +160,5 @@ class NguoidungController extends Controller {
         }
         return back()->with(['error-message'=>'Kiểm tra lại mã kích hoạt!','nd_maso'=>$request->input('nd_maso')]);
     }
+
 }

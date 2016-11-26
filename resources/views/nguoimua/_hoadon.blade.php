@@ -28,16 +28,16 @@
 			</td>
 		<td><p class="number"><?= $item->hd_gia?></p></td>
 		<td><p><?php
-				echo ($item->hd_hoantat == ($item->hd_soluong - $item->hd_huy))?'ĐÃ HOÀN TẤT':'';
-				echo ($item->hd_xuly == ($item->hd_soluong - $item->hd_huy - $item->hd_hoantat))?'ĐÃ XÁC NHẬN':'';
-				echo (($item->hd_soluong - $item->hd_huy - $item->hd_hoantat - $item->hd_xuly )>0)?'ĐANG XỬ LÝ':'';
-				echo ($item->hd_huy == $item->hd_soluong)?'ĐÃ HỦY':'';
+				echo (($item->hd_hoantat>0)&&($item->hd_hoantat == ($item->hd_soluong - $item->hd_huy)))?'ĐÃ HOÀN TẤT</br>':'';
+				echo (($item->hd_xuly>0)&&($item->hd_xuly == ($item->hd_soluong - $item->hd_huy - $item->hd_hoantat)))?'ĐÃ XÁC NHẬN</br>':'';
+				echo (($item->hd_soluong - $item->hd_huy - $item->hd_hoantat - $item->hd_xuly )>0)?'ĐANG XỬ LÝ</br>':'';
+				echo ($item->hd_huy == $item->hd_soluong)?'ĐÃ HỦY</br>':'';
 				?>
 			</p>
 			<?php
-				echo ($item->hd_xuly>0)?'</br>Đã xử lý: '.$item->hd_xuly.'</br>':'';
-				echo ($item->hd_hoantat>0)?'</br>Đã hoàn tất: '.$item->hd_xuly.'</br>':'';
-				echo ($item->hd_xuly>0)?'</br>Đã hủy: '.$item->hd_huy.'</br>':'';
+			echo ($item->hd_xuly>0)?'</br>Đã xử lý: '.$item->hd_xuly.'</br>':'';
+			echo ($item->hd_hoantat>0)?'</br>Đã hoàn tất: '.$item->hd_hoantat.'</br>':'';
+			echo ($item->hd_xuly>0)?'</br>Đã hủy: '.$item->hd_huy.'</br>':'';
 			?>
 		</td>
 		<td>

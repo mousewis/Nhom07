@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
     @if (session('message'))
         <div class="alert alert-success">
@@ -12,7 +12,7 @@
     @endif
     <div class="col-sm-3">
         <div class="left-sidebar">
-            @include('nguoimua.panel')
+            @include('quantri.panel')
         </div>
     </div>
 
@@ -27,7 +27,7 @@
                 echo (($cthoadon[0]->hd_soluong - $cthoadon[0]->hd_huy - $cthoadon[0]->hd_hoantat - $cthoadon[0]->hd_xuly )>0)?'ĐANG XỬ LÝ</br>':'';
                 echo ($cthoadon[0]->hd_huy == $cthoadon[0]->hd_soluong)?'ĐÃ HỦY</br>':'';
                 ?>
-                </h4>
+            </h4>
             <h5>
                 <?php
                 echo ($cthoadon[0]->hd_xuly>0)?'</br>Đã xử lý: '.$cthoadon[0]->hd_xuly.'</br>':'';
@@ -61,7 +61,7 @@
                             <td><p class="number"><?= $item->cthd_soluong ?></p></td>
                             <td><p class="number"><?= $item->cthd_gia ?></p></td>
                             <td>
-                                <a href="{{url('home/nguoiban/'.$item->nd_maso)}}"><?= $item->nd_hoten?></a>
+                                <a href="{{url('home/quantri/'.$item->nd_maso)}}"><?= $item->nd_hoten?></a>
                                 </br><?= $item->nd_dchi ?>
                                 </br><?= $item->nd_sdt ?>
                                 </br>Đánh giá:<?= $item->nd_danhgia?>/5

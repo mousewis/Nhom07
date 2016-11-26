@@ -32,10 +32,15 @@ class Nguoidung extends Model {
             ->orderBy($col,$type)->paginate(15,['*'],'page_nd');
         return $result;
     }
-    public static function qt_nguoimua()
+    public static function qt_nguoimua($col = null, $type = null)
     {
+        if (($col ==null)||($col ==''))
+            $col = 'nd_tinhtrang';
+        if (($type ==null)||($type ==''))
+            $type = 'desc';
         $result = \DB::table('nguoidung')
-            ->where('nd_loai','=','2')->paginate(15,['*'],'page_nd');
+            ->where('nd_loai','=','2')
+            ->orderBy($col,$type)->paginate(15,['*'],'page_nd');
         return $result;
     }
     public static function chitiet_nguoimua($nd_maso)

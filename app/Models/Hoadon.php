@@ -10,6 +10,54 @@ class Hoadon extends Model {
     public $timestamps = false;
 
     protected $fillable = ['hd_maso','hd_nguoimua','hd_nguoinhan', 'hd_soluong','hd_xuly','hd_hoantat','hd_huy', 'hd_gia', 'hd_tgian', 'hd_dchi', 'hd_sdt'];
+    public static function quantri($hd_tinhtrang = null,$col = null, $type = null, $hd_tgian_tu =null,$hd_tgian_den = null,$hd_dchi = null, $cthd_tinhtrang =null,$hd_nguoimua = null, $hd_nguoiban=null )
+    {
+        if (($col==null)||($col==''))
+            $col = 'hd_tgian';
+        if (($type==null)||($type==''))
+            $type = 'desc';
+        if ($hd_tgian_tu == null)
+            $hd_tgian_tu = '2010-01-01';
+        if ($hd_tgian_den == null)
+            $hd_tgian_den = '2020-01-01';
+        if ($hd_dchi == null)
+            $hd_dchi = '';
+        if (($hd_nguoimua == null)&&($hd_nguoimua == ''))
+            $hd_nguoimua = '';
+        if (($hd_nguoiban == null)&&($hd_nguoiban == ''))
+            $hd_nguoiban = '';
+        if ($hd_tinhtrang != null)
+            return \DB::table('cthoadon')
+                ->leftJoin('hoadon','cthd_hoadon','=','hd_maso')
+                ->leftJoin('dienthoai','cthd_dienthoai','=','dt_maso')
+                ->leftJoin('hoadonnhap','dt_hdn','=','hdn_maso')
+                ->where([['cthd_tinhtrang','=',$hd_tinhtrang],
+                    ['hd_nguoimua','like','%'.$hd_nguoimua.'%'],
+                    ['hdn_nguoidung','like','%'.$hd_nguoiban.'%'],
+                ])->orderBy($col,$type)->paginate(10,['*'],'page_cthd');
+        if (($cthd_tinhtrang == null)||($cthd_tinhtrang == ''))
+            return \DB::table('cthoadon')
+                ->leftJoin('hoadon','cthd_hoadon','=','hd_maso')
+                ->leftJoin('dienthoai','cthd_dienthoai','=','dt_maso')
+                ->leftJoin('hoadonnhap','dt_hdn','=','hdn_maso')
+                ->where([['hd_tgian','>=',$hd_tgian_tu],
+                    ['hd_tgian','<=',$hd_tgian_den],
+                    ['hd_dchi','like','%'.$hd_dchi.'%'],
+                    ['hd_nguoimua','like','%'.$hd_nguoimua.'%'],
+                    ['hdn_nguoidung','like','%'.$hd_nguoiban.'%'],
+                ])->orderBy($col,$type)->paginate(10,['*'],'page_cthd');
+        return \DB::table('cthoadon')
+            ->leftJoin('hoadon','cthd_hoadon','=','hd_maso')
+            ->leftJoin('dienthoai','cthd_dienthoai','=','dt_maso')
+            ->leftJoin('hoadonnhap','dt_hdn','=','hdn_maso')
+            ->where([['cthd_tinhtrang','=',$cthd_tinhtrang],
+                ['hd_tgian','>=',$hd_tgian_tu],
+                ['hd_tgian','<=',$hd_tgian_den],
+                ['hd_nguoimua','like','%'.$hd_nguoimua.'%'],
+                ['hdn_nguoidung','like','%'.$hd_nguoiban.'%'],
+                ['hd_dchi','like','%'.trim($hd_dchi).'%'],
+            ])->orderBy($col,$type)->paginate(10,['*'],'page_cthd');
+    }
     public static function nguoimua($hd_nguoimua,$hd_tinhtrang = null)
     {
         if ($hd_tinhtrang == null)
@@ -20,9 +68,9 @@ class Hoadon extends Model {
         if ($hd_tinhtrang=='0')
             return \DB::table('hoadon')->where("hd_nguoimua","=",\DB::raw("'".$hd_nguoimua."' and hd_soluong - hd_huy - hd_hoantat - hd_xuly > 0"))->orderBy('hd_tgian','desc')->paginate(10,['*'],'page_hd');
         if ($hd_tinhtrang=='1')
-            return \DB::table('hoadon')->where("hd_nguoimua","=",\DB::raw("'".$hd_nguoimua."' and hd_xuly=(hd_soluong - hd_huy - hd_hoantat)"))->orderBy('hd_tgian','desc')->paginate(10,['*'],'page_hd');
+            return \DB::table('hoadon')->where("hd_nguoimua","=",\DB::raw("'".$hd_nguoimua."' and hd_xuly > 0 and hd_xuly=(hd_soluong - hd_huy - hd_hoantat)"))->orderBy('hd_tgian','desc')->paginate(10,['*'],'page_hd');
         if ($hd_tinhtrang=='2')
-            return \DB::table('hoadon')->where("hd_nguoimua","=",\DB::raw("'".$hd_nguoimua."' and hd_hoantat=(hd_soluong - hd_huy)" ))->orderBy('hd_tgian','desc')->paginate(10,['*'],'page_hd');
+            return \DB::table('hoadon')->where("hd_nguoimua","=",\DB::raw("'".$hd_nguoimua."' and hd_hoantat > 0 and hd_hoantat=(hd_soluong - hd_huy)" ))->orderBy('hd_tgian','desc')->paginate(10,['*'],'page_hd');
     }
     public static function nguoiban($hd_nguoiban,$hd_tinhtrang = null,$col = null, $type = null, $hd_tgian_tu =null,$hd_tgian_den = null,$hd_dchi = null, $cthd_tinhtrang =null )
     {

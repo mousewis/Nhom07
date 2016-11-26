@@ -20,8 +20,8 @@
         <tr>
             <th><i class="fa fa-dollar"></i> Tài khoản</th>
             <td><h3 class="number"><?= $nguoiban->nd_taikhoan?></h3></td>
-            <td><a href="">Lịch sử giao dịch</a> </td>
-            <td><a href="">Nạp thêm tiền</a> </td>
+            <td><a href="{{url('nguoiban/naptien')}}">Lịch sử giao dịch</a> </td>
+            <td><a href="{{url('nguoiban/naptien/them')}}">Nạp thêm tiền</a> </td>
         </tr>
         <tr>
             <th><i class="fa fa-star"></i> Điểm đánh giá</th>

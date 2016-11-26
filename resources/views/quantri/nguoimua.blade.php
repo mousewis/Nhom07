@@ -16,11 +16,11 @@
     </div>
         </div>
 
-    <?php if (isset($nguoiban)): ?>
+    <?php if (isset($nguoimua)): ?>
     <div class="col-sm-9 padding-right text-center">
         <div class="signup-form"><!--sign up form-->
-            <h2>Danh sách người bán</h2>
-            @include('quantri._nguoiban')
+            <h2>Danh sách người mua</h2>
+            @include('quantri._nguoimua')
     </div>
         </div>
     <?php endif; ?>

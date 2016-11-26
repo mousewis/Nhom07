@@ -21,4 +21,14 @@ class Hoadonnhap extends Model {
             ->where('hdn_nguoidung','=',$hdn_nguoidung)
             ->orderBy($col, $type)->paginate(10,['*'],'page_hdn');
     }
+    public static function getall($col = null, $type = null)
+    {
+        if (($col == null)||($col==''))
+            $col = 'hdn_tgian';
+        if (($type == null)||($type==''))
+            $type = 'desc';
+        return \DB::table('hoadonnhap')
+            ->leftJoin('dienthoai','dt_hdn','=','hdn_maso')
+            ->orderBy($col,$type)->paginate(15,['*'],'page_hdn');
+    }
 }

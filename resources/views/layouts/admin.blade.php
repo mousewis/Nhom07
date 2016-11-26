@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <!--<a href="{{url('quantri/')}}"><img src="{{URL::asset('/images/home/logo.png')}}" alt="" /></a>-->
+                        <a href="{{url('quantri/dangnhap')}}"><img src="{{URL::asset('/images/home/logo.png')}}" alt="" /></a>
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -65,7 +65,7 @@
                                 <a href="{{url('quantri/dangxuat')}}"><i class="fa fa-sign-out"></i>Đăng xuất</a>
                             </li>
                             <?php else:?>
-                            <li><a href="{{url('nguoidung/dangnhap')}}"><i class="fa fa-sign-in"></i>Đăng nhập</a></li>
+                            <li><a href="{{url('quantri/dangnhap')}}"><i class="fa fa-sign-in"></i>Đăng nhập</a></li>
                             <?php endif; ?>
                         </ul>
                     </div>

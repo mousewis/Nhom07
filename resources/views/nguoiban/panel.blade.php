@@ -14,8 +14,8 @@
                             <li><a href="{{url('nguoiban')}}">Thông tin tài khoản</a></li>
                             <li><a href="{{url('nguoiban/danhgia')}}">Đánh giá của người mua</a></li>
                             <li><a href="{{url('nguoiban/hoadonnhap')}}">Lịch sử đăng tin</a></li>
-                            <li><a href="product.php">Nạp tiền vào tài khoản</a></li>
-                            <li><a href="product.php">Lịch sử nạp tiền</a></li>
+                            <li><a href="{{url('nguoiban/naptien/them')}}">Nạp tiền vào tài khoản</a></li>
+                            <li><a href="{{url('nguoiban/naptien')}}">Lịch sử nạp tiền</a></li>
                         </ul>
                     </div>
                 </div>

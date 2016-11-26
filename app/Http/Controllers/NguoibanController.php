@@ -11,6 +11,7 @@ use App\Nguoidung;
 use App\Dienthoai;
 use App\Hoadonnhap;
 use App\Hoadon;
+use App\Hoadontk;
 use App\Cthoadon;
 use Illuminate\Support\Facades\Input;
 
@@ -181,6 +182,32 @@ class NguoibanController extends Controller
         {
             $hoadonnhap = Hoadonnhap::nguoiban(\Session::get('nd_maso'),$request->input('col'),$request->input('type'));
             return view('nguoiban.hoadonnhap',compact('hoadonnhap',$hoadonnhap));
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+        }
+    }
+    public function naptien(Request $request)
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='1'))
+        {
+            $hoadontk = Hoadontk::getall($request->input('col'),
+                $request->input('type'),$request->input('hdtk_tgian_tu'),
+                $request->input('hdtk_tgian_den'),$request->input('hdtk_gia_tu'),
+                $request->input('hdtk_gia_den'),\Session::has('nd_maso'));
+            return view('nguoiban.naptien',compact('hoadontk',$hoadontk));
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+        }
+    }
+    public function them_naptien(Request $request)
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='1'))
+        {
+            return view('nguoiban.them_naptien');
         }
         else
         {

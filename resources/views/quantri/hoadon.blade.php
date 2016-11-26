@@ -16,11 +16,11 @@
     </div>
         </div>
 
-    <?php if (isset($nguoiban)): ?>
+    <?php if (isset($hoadon)): ?>
     <div class="col-sm-9 padding-right text-center">
         <div class="signup-form"><!--sign up form-->
-            <h2>Danh sách người bán</h2>
-            @include('quantri._nguoiban')
+            <h2>Danh sách đơn hàng</h2>
+            @include('quantri._hoadon')
     </div>
         </div>
     <?php endif; ?>

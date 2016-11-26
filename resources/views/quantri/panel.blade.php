@@ -11,11 +11,12 @@
                 <div id="taikhoan" class="panel-collapse collapse">
                     <div class="panel-body">
                         <ul>
-                            <li><a href="{{url('quantri/nguoidung')}}">Danh sách người dùng</a></li>
+                            <li><a href="{{url('quantri/nguoiban')}}">Danh sách người bán</a></li>
+                            <li><a href="{{url('quantri/nguoimua')}}">Danh sách người mua</a></li>
                             <li><a href="{{url('quantri/nguoidung/them')}}">Thêm người dùng</a></li>
                             <li><a href="{{url('quantri/nguoidung/matkhau')}}">Đặt lại mật khẩu</a></li>
-                            <li><a href="{{url('quantri/nguoidung/khoa')}}">Khóa người dùng</a></li>
-                            <li><a href="{{url('quantri/nguoidung/mokhoa')}}">Mở khóa người dùng</a></li>
+                            <li><a href="{{url('quantri/nguoidung/khoa')}}">Khóa/Mở khóa người dùng</a></li>
+                            <li><a href="{{url('quantri/danhgia')}}">Quản lý đánh giá</a></li>
                         </ul>
                     </div>
                 </div>
@@ -32,8 +33,8 @@
                 <div id="chungtu" class="panel-collapse collapse">
                     <div class="panel-body">
                         <ul>
-                            <li><a href="{{url('quantri/chungtu')}}">Chứng từ nạp tiền</a></li>
-                            <li><a href="{{url('quantri/loinhuan')}}">Thống kê lợi nhuận</a></li>
+                            <li><a href="{{url('quantri/naptien')}}">Chứng từ nạp tiền- Lợi nhuận</a></li>
+                            <li><a href="{{url('quantri/hoadonnhap')}}">Chứng từ hóa đơn nhập</a></li>
                         </ul>
                     </div>
                 </div>

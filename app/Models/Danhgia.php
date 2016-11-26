@@ -10,6 +10,11 @@ class Danhgia extends Model {
     public $timestamps = false;
 	
 	protected $fillable = ['dg_hoadon','dg_tgian','dg_nguoimua', 'dg_nguoiban', 'dg_diem'];
+    public static function getall()
+    {
+        $result = \DB::table('danhgia')->paginate(15,['*'],'page_dg');
+        return $result;
+    }
     public static function luot_danhgia($nd_maso)
     {
         $result = \DB::table('danhgia')->where('dg_nguoiban','=',$nd_maso)->count('*');

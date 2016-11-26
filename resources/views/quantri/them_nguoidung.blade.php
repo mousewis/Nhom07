@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
     @if (session('message'))
         <div class="alert alert-success">
@@ -16,7 +16,6 @@
     </div>
         </div>
 
-    <?php if (isset($nguoiban)): ?>
     <div class="col-sm-9 padding-right text-center">
         <div class="signup-form"><!--sign up form-->
             <h2>Thêm người dùng</h2>
@@ -29,7 +28,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="<?= url('quantri/nguoidung/them') ?>" method="POST" class="form-horizontal">
+            <form action="<?= url('quantri/nguoidung/_them') ?>" method="POST" class="form-horizontal">
                 <fieldset>
                     <div class="form-group"><!----<label class="control-label">Tên người dùng:</label>--->
                         <input type="text" name="nd_maso" required ='required' class="col-md-4 form-control" placeholder="Tên người dùng"></div>
@@ -57,5 +56,4 @@
             </form>
     </div>
         </div>
-    <?php endif; ?>
 @endsection
