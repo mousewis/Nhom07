@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Nguoidung;
 use Illuminate\Http\Request;
-
 use App\Quantri;
-
-
+use App\Taikhoan;
 class QuantriController extends Controller {
 
 	/**
@@ -23,7 +22,6 @@ class QuantriController extends Controller {
 
 		return view('quantri.index', compact('quantri',$quantri));
 	}
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -31,14 +29,10 @@ class QuantriController extends Controller {
 	 *
 	 * Route::get('quantri/create', 'QuantriController@create')->name('quantri.create');
 	 */
-	public function create()
-	{
-		return view('quantri.create');
-	}
-    public function dangnhap()
+	public function dangnhap()
     {
         if (\Session::has('qt_maso'))
-            return redirect('/');
+            return redirect('quantri');
         return view('quantri.dangnhap');
     }
     public function _dangnhap(Request $request)
@@ -56,7 +50,7 @@ class QuantriController extends Controller {
     }
     public function dangxuat()
     {
-        if (\Session::has('nd_maso'))
+        if (\Session::has('qt_maso'))
             \Session::clear();
         return redirect('/');
     }
@@ -90,99 +84,114 @@ class QuantriController extends Controller {
         $nguoidung->save();
         return redirect('/')->with('message', 'Đã đăng kí thành công!');
     }
-
-    /**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param Request $request
-	 * @return Response
-	 *
-	 * Route::post('quantri/store', 'QuantriController@store');
-	 */
-	public function store(Request $request)
-	{
-	     $this->validate($request, [
-
-            'qt_email' => 'required|max:64',
-            'qt_matkhau' => 'required|max:256',
-
-		 ]);
-		 
-		$quantri = new Quantri();
-
-		$quantri->qt_email = $request->input('qt_email');
-		$quantri->qt_matkhau = $request->input('qt_matkhau');
-
-		$quantri->save();
-
-		return redirect()->route('quantri.index')->with('message', 'Item created successfully.');
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $qt_maso
-	 * @return Response
-	 *
-	 * Route::get('quantri/show/{qt_maso}', 'QuantriController@show');
-	 */
-	public function show($qt_maso)
-	{
-		$quantri = Quantri::findOrFail($qt_maso);
-
-		return view('quantri.show', compact('quantri',$quantri));
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $qt_maso
-	 * @return Response
-	 *
-	 * Route::get('quantri/edit/{qt_maso}', 'QuantriController@edit');
-	 */
-	public function edit($qt_maso)
-	{
-		$quantri = Quantri::findOrFail($qt_maso);
-
-		return view('quantri.edit', compact('quantri',$quantri));
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $qt_maso
-	 * @param Request $request
-	 * @return Response
-	 *
-	 * Route::put('quantri/update/{qt_maso}', 'QuantriController@update');
-	 */
-	public function update(Request $request, $qt_maso)
-	{
-		$quantri = Quantri::findOrFail($qt_maso);
-
-		$quantri->qt_email = $request->input('qt_email');
-		$quantri->qt_matkhau = $request->input('qt_matkhau');
-
-		$quantri->save();
-
-		return redirect()->route('quantri.index')->with('message', 'Item updated successfully.');
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $qt_maso
-	 * @return Response
-	 *
-	 * Route::get('quantri/delete/{qt_maso}', 'QuantriController@destroy');
-	 */
-	public function destroy($qt_maso)
-	{
-		$quantri = Quantri::findOrFail($qt_maso);
-		$quantri->delete();
-
-		return redirect()->route('quantri.index')->with('message', 'Item deleted successfully.');
-	}
-
+    public function  nguoiban(Request $request)
+    {
+        if (\Session::has('qt_maso'))
+        {
+            $nguoiban = Nguoidung::qt_nguoiban(
+                $request->input('col'),$request->input('type'));
+            return view('quantri.nguoiban')->with('nguoiban',$nguoiban);
+        }
+        return redirect('/');
+    }
+    public function nguoimua()
+    {
+        if (\Session::has('qt_maso'))
+        {
+            $nguoiban = Nguoidung::qt_nguoimua();
+            return view('quantri.nguoimua')->with('nguoimua',$nguoimua);
+        }
+        return redirect('/');
+    }
+    public function them_nguoidung()
+    {
+        if (\Session::has('qt_maso'))
+        {
+            return view('quantri.them_nguoidung');
+        }
+        return redirect('/');
+    }
+    public function _them_nguoidung(Request $request)
+    {
+        if (\Session::has('qt_maso'))
+        {
+            $this->validate($request, [
+                'nd_maso' => 'required|max:64',
+                'nd_email' => 'required|max:64',
+                'nd_matkhau' => 'required|max:256',
+                'nd_hoten' => 'required|max:256',
+                'nd_sdt' => 'required|max:256',
+                'nd_dchi' => 'required|max:256',
+                'nd_loai' => 'required|numeric',
+            ]);
+            $nd_kichhoat = str_random(16);
+            $nguoidung = new Nguoidung();
+            $nguoidung->nd_maso = $request->input('nd_maso');
+            $nguoidung->nd_email = $request->input('nd_email');
+            $nguoidung->nd_matkhau = md5($request->input('nd_matkhau'));
+            $nguoidung->nd_hoten = $request->input('nd_hoten');
+            $nguoidung->nd_sdt = $request->input('nd_sdt');
+            $nguoidung->nd_dchi = $request->input('nd_dchi');
+            $nguoidung->nd_loai = $request->input('nd_loai');
+            $nguoidung->nd_taikhoan = 0;
+            $nguoidung->nd_tinhtrang=1;
+            $nguoidung->nd_danhgia = 0;
+            $nguoidung->nd_kichhoat = str_random(16);;
+            $nguoidung->save();
+            if ($request->input('nd_loai')==1)
+            {
+                return redirect('quantri/nguoiban')->with('message','Đã thêm tài khoản thành công!');
+            }
+            return redirect('quantri/nguoimua')->with('message', 'Đã thêm tài khoản thành công!');
+        }
+        return redirect('quantri');
+    }
+    public function khoa_nguoidung()
+    {
+        if (\Session::has('qt_maso'))
+        {
+            $nguoidung = Nguoidung::all();
+            $taikhoan = Taikhoan::all();
+            return view('quantri.khoa_nguoidung')->with(['nguoidung'=>$nguoidung,'taikhoan'=>$taikhoan]);
+        }
+        return redirect('/');
+    }
+    public function _khoa_nguoidung(Request $request)
+    {
+        if (\Session::has('qt_maso'))
+        {
+            $this->validate($request, [
+                'tk_nguoidung' => 'required',
+                'tk_ghichu'=>'required|max:256',
+            ]);
+            $taikhoan = new Taikhoan();
+            $taikhoan->tk_nguoidung = $request->input('tk_nguoidung');
+            $taikhoan->tk_tgian = date('Y-m-d');
+            $taikhoan->tk_noidung = '-1';
+            $taikhoan->tk_ghichu = $request->input('tk_ghichu');
+            $taikhoan->save();
+            \DB::table('nguoidung')->where('nd_maso','=',$request->input('tk_nguoidung'))->update(['nd_tinhtrang'=>'-1']);
+            return redirect('quantri/nguoidung/khoa')->with('message','Đã khóa tài khoản hành công');
+        }
+        return redirect('/');
+    }
+    public function _mokhoa_nguoidung(Request $request)
+    {
+        if (\Session::has('qt_maso'))
+        {
+            $this->validate($request, [
+                'tk_nguoidung' => 'required',
+                'tk_ghichu'=>'required|max:256',
+            ]);
+            $taikhoan = new Taikhoan();
+            $taikhoan->tk_nguoidung = $request->input('tk_nguoidung');
+            $taikhoan->tk_tgian = date('Y-m-d');
+            $taikhoan->tk_noidung = '-1';
+            $taikhoan->tk_ghichu = $request->input('tk_ghichu');
+            $taikhoan->save();
+            \DB::table('nguoidung')->where('nd_maso','=',$request->input('tk_nguoidung'))->update(['nd_tinhtrang'=>'-1']);
+            return redirect('quantri/nguoidung/khoa')->with('message','Đã khóa tài khoản hành công');
+        }
+        return redirect('/');
+    }
 }

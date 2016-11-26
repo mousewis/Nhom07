@@ -16,6 +16,7 @@
     <link href="{{ URL::asset('/css/prettyPhoto.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('/css/price-range.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('/css/responsive.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('/css/select2.min.css')}}" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="{{URL::asset('js/html5shiv.js')}}"></script>
     <script src="{{URL::asset('js/respond.min.js')}}"></script>
@@ -106,11 +107,15 @@
 <script src="{{URL::asset('js/main.js')}}"></script>
 <script src="{{URL::asset('js/jquery-ui.js')}}"></script>
 <script src="{{URL::asset('js/jquery.number.min.js')}}"></script>
+<script src="{{URL::asset('js/select2.min.js')}}"></script>
 <script>
     $(document).ready(function () {
 
         $(".number").number(true,0);
     });
+</script>
+<script>
+    $('select').select2();
 </script>
 </body>
 </html>

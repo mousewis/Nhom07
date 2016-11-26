@@ -175,4 +175,16 @@ class NguoibanController extends Controller
             return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
         }
     }
+    public function hoadonnhap(Request $request)
+    {
+        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')=='1'))
+        {
+            $hoadonnhap = Hoadonnhap::nguoiban(\Session::get('nd_maso'),$request->input('col'),$request->input('type'));
+            return view('nguoiban.hoadonnhap',compact('hoadonnhap',$hoadonnhap));
+        }
+        else
+        {
+            return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+        }
+    }
 }
