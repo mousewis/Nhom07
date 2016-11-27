@@ -21,6 +21,12 @@ class Nguoidung extends Model {
             ->where('nd_loai','=','1')->get();
         return $result;
     }
+    public static function chitiet($nd_maso)
+    {
+        $result = \DB::table('nguoidung')
+            ->where('nd_maso','=',$nd_maso)->first();
+        return $result;
+    }
     public static function qt_nguoiban($col = null, $type = null)
     {
         if (($col ==null)||($col ==''))
@@ -73,5 +79,10 @@ class Nguoidung extends Model {
     public  static  function _kichhoat($nd_maso)
     {
         \DB::table('nguoidung')->where('nd_maso','=',$nd_maso)->update(['nd_tinhtrang'=>'1']);
+    }
+    public static function naptien($nd_maso, $nd_taikhoan)
+    {
+        $taikhoan = \DB::table('nguoidung')->where('nd_maso','=',$nd_maso)->value('nd_taikhoan');
+        \DB::table('nguoidung')->where('nd_maso','=',$nd_maso)->update(['nd_taikhoan'=>($taikhoan+$nd_taikhoan)]);
     }
 }

@@ -39,7 +39,7 @@
 		</tr>
 		@foreach($nguoimua as $item)
 			<td>
-				<p><?= $item->nd_maso ?></p>
+				<a href="{{url('quantri/nguoidung/'.$item->nd_maso)}}"><?= $item->nd_maso ?></a>
 			</td>
 			<td>
 				<?= $item->nd_hoten ?>

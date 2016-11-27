@@ -146,6 +146,16 @@ class QuantriController extends Controller {
         }
         return redirect('quantri');
     }
+
+    public function chitiet_nguoidung($nd_maso)
+    {
+        if (\Session::has('qt_maso'))
+        {
+            $nguoidung = Nguoidung::chitiet($nd_maso);
+            return view('quantri.ct_nguoidung')->with(['nguoidung'=>$nguoidung]);
+        }
+        return redirect('/');
+    }
     public function khoa_nguoidung()
     {
         if (\Session::has('qt_maso'))

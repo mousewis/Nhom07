@@ -61,7 +61,7 @@
                             <td><p class="number"><?= $item->cthd_soluong ?></p></td>
                             <td><p class="number"><?= $item->cthd_gia ?></p></td>
                             <td>
-                                <a href="{{url('home/quantri/'.$item->nd_maso)}}"><?= $item->nd_hoten?></a>
+                                <a href="{{url('quantri/nguoidung/'.$item->nd_maso)}}"><?= $item->nd_hoten ?></a>
                                 </br><?= $item->nd_dchi ?>
                                 </br><?= $item->nd_sdt ?>
                                 </br>Đánh giá:<?= $item->nd_danhgia?>/5
@@ -96,6 +96,10 @@
                 <div class="table-responsive cart_info">
                     <div class="shopper-info">
                         <table>
+                            <tr>
+                                <th>Người mua</th>
+                                <td><a href="{{url('quantri/nguoidung/'.$item->hd_nguoimua)}}"><?= $item->hd_nguoimua ?></a></td>
+                            </tr>
                             <tr>
                                 <th>Người nhận</th>
                                 <td><?= $cthoadon[0]->hd_nguoinhan ?></td>

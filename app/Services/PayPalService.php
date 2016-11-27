@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services;
+use PayPal\Api\InputFields;
+use PayPal\Api\Presentation;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Item;
@@ -11,6 +13,7 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\Payment;
 use PayPal\Api\Payer;
 use PayPal\Api\PaymentExecution;
+use PayPal\Api\WebProfile;
 use Request;
 class PayPalService
 {
@@ -26,7 +29,6 @@ class PayPalService
     private $returnUrl;
     // Đường dẫn để xử lý khi người dùng bấm cancel (không thanh toán)
     private $cancelUrl;
-
     public function __construct()
     {
         // Đọc các cài đặt trong file config
@@ -174,7 +176,18 @@ class PayPalService
         // Chọn kiểu thanh toán.
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
-
+        //profile
+        $input_fiels = new InputFields();
+        $input_fiels->no_shipping = 1;
+        $presentation = new Presentation();
+        $presentation->brand_name = 'Nạp tiền vào tài khoản';
+        $presentation->locale_code = 'US';
+        $presentation->logo_image = asset('/images/home/logo.png');
+        $profile = new WebProfile();
+        $profile->name = 'Nạp tiền vào tài khoản';
+        $profile->presentation = $presentation;
+        $profile->input_fields = $input_fiels;
+        $webprofile = $profile->create($this->apiContext);
         // Danh sách các item
         $itemList = new ItemList();
         $itemList->setItems($this->itemList);
@@ -208,6 +221,7 @@ class PayPalService
         // Khởi tạo một payment
         $payment = new Payment();
         $payment->setIntent('Sale')
+            ->setExperienceProfileId($webprofile->getId())
             ->setPayer($payer)
             ->setRedirectUrls($redirectUrls)
             ->setTransactions([$transaction]);

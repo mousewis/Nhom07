@@ -6,11 +6,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Nguoidung;
 use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\PayPalService as PayPalSvc;
+use App\Hoadontk;
+use PayPal\Api\WebProfile;
 
 class PayPalController extends Controller
 {
@@ -34,28 +37,34 @@ class PayPalController extends Controller
                 'sku' => '1'
             ],
         ];
-        $transactionDescription = "Nạp tiền";
+        $transactionDescription = "Nạp tiền vào tài khoản";
 
         $paypalCheckoutUrl = $this->paypalSvc
             // ->setCurrency('eur')
             ->setReturnUrl(url('paypal/status'))
-            // ->setCancelUrl(url('paypal/status'))
-            ->setItem($data)
-            // ->setItem($data[0])
+            ->setCancelUrl(url('nguoiban/naptien/them'))
+            ->setItem($data[0])
             // ->setItem($data[1])
             ->createPayment($transactionDescription);
 
         if ($paypalCheckoutUrl) {
             return redirect($paypalCheckoutUrl);
         } else {
-            dd(['Error']);
+            return redirect('nguoiban/naptien/them')->with('error-message','Thanh toán lỗi');
         }
     }
 
     public function status()
     {
         $paymentStatus = $this->paypalSvc->getPaymentStatus();
-        dd($paymentStatus);
+        $hoadontk_gia = ($paymentStatus->transactions[0]->item_list->items[0]->price)*20000;
+        $hoadontk = new Hoadontk();
+        $hoadontk->hdtk_nguoidung = \Session::get('nd_maso');
+        $hoadontk->hdtk_tgian = date('Y-m-d');
+        $hoadontk->hdtk_gia=$hoadontk_gia;
+        $hoadontk->save();
+        Nguoidung::naptien(\Session::get('nd_maso'),$hoadontk_gia);
+        return redirect('nguoiban/naptien/them')->with('message','Bạn đã nạp '.$hoadontk_gia.' vào tài khoản thành công');
     }
 
     public function paymentList()

@@ -27,7 +27,6 @@
     <div class="col-sm-9 padding-right text-center">
         <div class="signup-form"><!--sign up form-->
             <h2>Khóa người dùng</h2>
-
             @if (isset($nguoidung))
                 <div class="col-sm-6 padding-left">
                     <div class="step-one">

@@ -11,7 +11,7 @@
                 <div id="taikhoan" class="panel-collapse collapse">
                     <div class="panel-body">
                         <ul>
-                            <li><a href="product.php">Thông tin tài khoản</a></li>
+                            <li><a href="{{url('nguoimua')}}">Thông tin tài khoản</a></li>
                         </ul>
                     </div>
                 </div>
