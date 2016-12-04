@@ -68,39 +68,38 @@ class NguoibanController extends Controller
     }
     public function luu_dienthoai(Request $request)
     {
-        if (\Session::has('nd_maso')&&\Session::has('nd_loai')&&(\Session::get('nd_loai')==1)) {
-            $nguoiban = Nguoidung::chitiet_nguoiban(\Session::get('nd_maso'));
-            $thuonghieu = Thuonghieu::all();
-            if (!(isset($nguoiban))||(int)$nguoiban->nd_taikhoan<10000||$nguoiban->nd_tinhtrang!='1')
-                return back()->with([['thuonghieu',$thuonghieu],['error_message','Tài khoản không đủ để đăng tin!']]);
-            $this->validate($request, [
-                'dt_ten' => 'required|max:256',
-                'dt_sluong' => 'required|numeric',
-                'dt_gia' => 'required|numeric',
-                'dt_hinh' => 'required|image|mimes:jpeg,bmp,png',
-                'dt_loai' => 'required|max:256',
-                'dt_kco' => 'required|max:256',
-                'dt_pgiai' => 'required|max:256',
-                'dt_pin' => 'required|max:256',
-                'dt_hdh' => 'required|max:256',
-                'dt_ram' => 'required|max:256',
-                'dt_bnho' => 'required|max:256',
-                'dt_cam' => 'required|max:256',
-            ]);
-            $hdn_maso = date('YmdHisu');
-            if ($request->file('dt_hinh')->isValid())
-            {
-                $extension = $request->file('dt_hinh')->extension();
-                $name = $hdn_maso.'.'.$extension;
-                $request->file('dt_hinh')->storeAs('images/product-details',$name);
-            }
-            $hdn = new Hoadonnhap();
+            if (\Session::has('nd_maso') && \Session::has('nd_loai') && (\Session::get('nd_loai') == 1)) {
+                $nguoiban = Nguoidung::chitiet_nguoiban(\Session::get('nd_maso'));
+                $thuonghieu = Thuonghieu::all();
+                if (!(isset($nguoiban)) || (int)$nguoiban->nd_taikhoan < 10000 || $nguoiban->nd_tinhtrang != '1')
+                    return back()->with([['thuonghieu', $thuonghieu], ['error_message', 'Tài khoản không đủ để đăng tin!']]);
+                $this->validate($request, [
+                    'dt_ten' => 'required|max:256',
+                    'dt_sluong' => 'required|numeric',
+                    'dt_gia' => 'required|numeric',
+                    'dt_hinh' => 'required|image|mimes:jpeg,bmp,png',
+                    'dt_loai' => 'required|max:256',
+                    'dt_kco' => 'required|max:256',
+                    'dt_pgiai' => 'required|max:256',
+                    'dt_pin' => 'required|max:256',
+                    'dt_hdh' => 'required|max:256',
+                    'dt_ram' => 'required|max:256',
+                    'dt_bnho' => 'required|max:256',
+                    'dt_cam' => 'required|max:256',
+                ]);
+                $hdn_maso = date('YmdHisu');
+                if ($request->file('dt_hinh')->isValid()) {
+                    $extension = $request->file('dt_hinh')->extension();
+                    $name = $hdn_maso . '.' . $extension;
+                    $request->file('dt_hinh')->storeAs('images/product-details', $name);
+                }
+                $hdn = new Hoadonnhap();
                 $hdn->hdn_maso = $hdn_maso;
                 $hdn->hdn_nguoidung = \Session::get('nd_maso');
                 $hdn->hdn_tgian = date('Y-m-d');
                 $hdn->hdn_gia = '10000';
-            $hdn->save();
-            $dienthoai = new Dienthoai();
+                $hdn->save();
+                $dienthoai = new Dienthoai();
                 $dienthoai->dt_ten = $request->input('dt_ten');
                 $dienthoai->dt_hdn = $hdn_maso;
                 $dienthoai->dt_sluong = $request->input('dt_sluong');
@@ -115,11 +114,12 @@ class NguoibanController extends Controller
                 $dienthoai->dt_ram = $request->input('dt_ram');
                 $dienthoai->dt_bnho = $request->input('dt_bnho');
                 $dienthoai->dt_cam = $request->input('dt_cam');
-            $dienthoai->save();
-            Nguoidung::capnhat_dt(\Session::get('nd_maso'),$nguoiban->nd_taikhoan);
-            return redirect('nguoiban/dienthoai')->with('message', 'Đã thêm sản phẩm thành công!');
-        }
-        return redirect('/')->with('error-message','Bạn không đủ quyền truy cập trang này!');
+                $dienthoai->save();
+                Nguoidung::capnhat_dt(\Session::get('nd_maso'), $nguoiban->nd_taikhoan);
+                return redirect('nguoiban/dienthoai')->with('message', 'Đã thêm sản phẩm thành công!');
+            }
+            return redirect('/')->with('error-message', 'Bạn không đủ quyền truy cập trang này!');
+
     }
     public function ct_dienthoai($dt_maso)
     {

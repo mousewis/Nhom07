@@ -7,6 +7,7 @@ use App\Hoadontk;
 use App\Http\Controllers\Controller;
 use App\Nguoidung;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use App\Quantri;
 use App\Taikhoan;
 use App\Hoadon;
@@ -115,6 +116,7 @@ class QuantriController extends Controller {
     {
         if (\Session::has('qt_maso'))
         {
+            try{
             $this->validate($request, [
                 'nd_maso' => 'required|max:64',
                 'nd_email' => 'required|max:64',
@@ -143,6 +145,13 @@ class QuantriController extends Controller {
                 return redirect('quantri/nguoiban')->with('message','Đã thêm tài khoản thành công!');
             }
             return redirect('quantri/nguoimua')->with('message', 'Đã thêm tài khoản thành công!');
+            }
+            catch (QueryException $e){
+            $error_code = $e->errorInfo[1];
+            if($error_code == 1062){
+                return redirect('quantri/nguoidung/them')->with('error-message','Tên người dùng hoặc email đã tồn tại');
+            }
+        }
         }
         return redirect('quantri');
     }

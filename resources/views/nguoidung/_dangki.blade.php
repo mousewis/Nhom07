@@ -7,7 +7,16 @@
         </ul>
     </div>
 @endif
-
+@if (session('message'))
+	<div class="alert alert-danger">
+		{{ session('message') }}
+	</div>
+@endif
+@if (session('error-message'))
+	<div class="alert alert-danger">
+		{{ session('error-message') }}
+	</div>
+@endif
 <form action="<?= url('nguoidung/_dangki') ?>" method="POST" class="form-horizontal">
 	<fieldset>
 		<div class="form-group"><!----<label class="control-label">Tên người dùng:</label>--->

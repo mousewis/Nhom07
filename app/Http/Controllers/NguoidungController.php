@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Mail\Kichhoat;
 use Illuminate\Http\Request;
-
+use Illuminate\Database\QueryException;
 use App\Nguoidung;
 use phpDocumentor\Reflection\DocBlock\Tags\See;
 
@@ -86,35 +86,42 @@ class NguoidungController extends Controller {
     }
 	public function  _dangki(Request $request)
     {
-        $this->validate($request, [
-            'nd_maso' => 'required|max:64',
-            'nd_email' => 'required|max:64',
-            'nd_matkhau' => 'required|max:256',
-            'nd_hoten' => 'required|max:256',
-            'nd_sdt' => 'required|max:256',
-            'nd_dchi' => 'required|max:256',
-            'nd_loai' => 'required|numeric',
-        ]);
-        $nd_kichhoat = str_random(16);
-        $nguoidung = new Nguoidung();
-        $nguoidung->nd_maso = $request->input('nd_maso');
-        $nguoidung->nd_email = $request->input('nd_email');
-        $nguoidung->nd_matkhau = md5($request->input('nd_matkhau'));
-        $nguoidung->nd_hoten = $request->input('nd_hoten');
-        $nguoidung->nd_sdt = $request->input('nd_sdt');
-        $nguoidung->nd_dchi = $request->input('nd_dchi');
-        $nguoidung->nd_loai = $request->input('nd_loai');
-        $nguoidung->nd_taikhoan = 0;
-        $request->input('nd_loai')=='1'?$nguoidung->nd_tinhtrang = 0:$nguoidung->nd_tinhtrang=1;
-        $nguoidung->nd_danhgia = 0;
-        $request->input('nd_loai')=='1'?$nguoidung->nd_kichhoat = $nd_kichhoat:$nguoidung->nd_kichhoat = 0;
-        $nguoidung->save();
-        if ($request->input('nd_loai')==1)
-            {
+        try {
+            $this->validate($request, [
+                'nd_maso' => 'required|max:64',
+                'nd_email' => 'required|max:64',
+                'nd_matkhau' => 'required|max:256',
+                'nd_hoten' => 'required|max:256',
+                'nd_sdt' => 'required|max:256',
+                'nd_dchi' => 'required|max:256',
+                'nd_loai' => 'required|numeric',
+            ]);
+            $nd_kichhoat = str_random(16);
+            $nguoidung = new Nguoidung();
+            $nguoidung->nd_maso = $request->input('nd_maso');
+            $nguoidung->nd_email = $request->input('nd_email');
+            $nguoidung->nd_matkhau = md5($request->input('nd_matkhau'));
+            $nguoidung->nd_hoten = $request->input('nd_hoten');
+            $nguoidung->nd_sdt = $request->input('nd_sdt');
+            $nguoidung->nd_dchi = $request->input('nd_dchi');
+            $nguoidung->nd_loai = $request->input('nd_loai');
+            $nguoidung->nd_taikhoan = 0;
+            $request->input('nd_loai') == '1' ? $nguoidung->nd_tinhtrang = 0 : $nguoidung->nd_tinhtrang = 1;
+            $nguoidung->nd_danhgia = 0;
+            $request->input('nd_loai') == '1' ? $nguoidung->nd_kichhoat = $nd_kichhoat : $nguoidung->nd_kichhoat = 0;
+            $nguoidung->save();
+            if ($request->input('nd_loai') == 1) {
                 \Mail::to($request->nd_email)->send(new Kichhoat($nd_kichhoat));
-                return redirect('/')->with('message','Mã kích hoạt tài khoản được gửi đến email. Vui lòng đăng nhập và nhập mã kích hoạt để hoàn tất.');
+                return redirect('/')->with('message', 'Mã kích hoạt tài khoản được gửi đến email. Vui lòng đăng nhập và nhập mã kích hoạt để hoàn tất.');
             }
-        return redirect('/')->with('message', 'Đã đăng kí thành công!');
+            return redirect('/')->with('message', 'Đã đăng kí thành công!');
+        }
+        catch (QueryException $e){
+            $error_code = $e->errorInfo[1];
+            if($error_code == 1062){
+                return redirect('nguoidung/dangki')->with('error-message','Tên người dùng hoặc email đã tồn tại');
+            }
+        }
     }
     /**
 	 * Store a newly created resource in storage.
