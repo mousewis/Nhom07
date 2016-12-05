@@ -99,7 +99,7 @@
 </footer><!--/Footer-->
 
 
-<script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+<script src="{{URL::asset('js/jquery-3.1.1.min.js') }}"></script>
 <script src="{{URL::asset('js/price-range.js')}}"></script>
 <script src="{{URL::asset('js/jquery.scrollUp.min.js')}}"></script>
 <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
