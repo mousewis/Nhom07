@@ -46,7 +46,7 @@
                         </tr>
                     @endforeach
                     <tr>
-                        <td colspan="4">
+                        <td colspan="5">
                             {!! $danhgia->appends(Request::input())->links() !!}
                         </td>
                     </tr>
