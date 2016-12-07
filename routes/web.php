@@ -74,6 +74,7 @@ Route::get('quantri','QuantriController@nguoiban');
 Route::get('quantri/nguoiban','QuantriController@nguoiban');
 Route::get('quantri/nguoimua','QuantriController@nguoimua');
 Route::get('quantri/nguoidung/them','QuantriController@them_nguoidung');
+Route::post('quantri/nguoidung/_them','QuantriController@_them_nguoidung');
 Route::get('quantri/nguoidung/khoa','QuantriController@khoa_nguoidung');
 Route::post('quantri/nguoidung/_khoa','QuantriController@_khoa_nguoidung');
 Route::get('quantri/nguoidung/matkhau','QuantriController@matkhau_nguoidung');
