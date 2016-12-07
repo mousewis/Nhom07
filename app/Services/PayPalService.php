@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use PayPal\Api\CreateProfileResponse;
 use PayPal\Api\InputFields;
 use PayPal\Api\Presentation;
 use PayPal\Exception\PayPalConnectionException;
@@ -172,27 +173,16 @@ class PayPalService
      */
     public function createPayment($transactionDescription)
     {
+        //dd($this->getProfileId());
         $checkoutUrl = false;
 
         // Chọn kiểu thanh toán.
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
         //profile
-        $input_fiels = new InputFields();
-        $input_fiels->no_shipping = 1;
-        $presentation = new Presentation();
-        $presentation->brand_name = 'Nap_tien';
-        $presentation->locale_code = 'US';
-        $presentation->logo_image = asset('/images/home/logo.png');
-        $profile = new WebProfile();
-        $profile->name = 'Nap_tien';
-        $profile->presentation = $presentation;
-        $profile->input_fields = $input_fiels;
-        //$profile = $profile->create($this->apiContext);
-        // Danh sách các item
+        //$createprofile = $profile->create($this->apiContext);
         $itemList = new ItemList();
         $itemList->setItems($this->itemList);
-
         // Tổng tiền và kiểu tiền sẽ sử dụng để thanh toán.
         // Bạn nên đồng nhất kiểu tiền của item và kiểu tiền của đơn hàng
         // tránh trường hợp đơn vị tiền của item là JPY nhưng của đơn hàng
@@ -200,7 +190,21 @@ class PayPalService
         $amount = new Amount();
         $amount->setCurrency($this->paymentCurrency)
             ->setTotal($this->totalAmount);
-
+        //webprolfile
+        /*$input_fiels = new InputFields();
+        $input_fiels->setNoShipping(1);
+        $presentation = new Presentation();
+        $presentation->setBrandName('nap_tien_vao_tai_khoan');
+        $presentation->setLocaleCode('US');
+        $presentation->setLogoImage(asset('/images/home/logo.png'));
+        $profile = new WebProfile();
+        $profile->setName('nap_tien_vao_tai_khoan');
+        $profile->setPresentation($presentation);
+        $profile->setInputFields($input_fiels);
+        $profile->setTemporary(false);
+        $webprofile = $profile->create($this->apiContext);
+        dd($webprofile->getId());
+        */
         // Transaction
         $transaction = new Transaction();
         $transaction->setAmount($amount)
@@ -220,9 +224,10 @@ class PayPalService
             ->setCancelUrl($this->cancelUrl);
 
         // Khởi tạo một payment
+
         $payment = new Payment();
         $payment->setIntent('Sale')
-            ->setExperienceProfileId($profile->getId())
+            ->setExperienceProfileId('XP-4GCX-GFES-BBVX-GWTD')
             ->setPayer($payer)
             ->setRedirectUrls($redirectUrls)
             ->setTransactions([$transaction]);
@@ -264,6 +269,7 @@ class PayPalService
      *
      * @return mixed Object payment details or false
      */
+
     public function getPaymentStatus()
     {
         // Khởi tạo request để lấy một số query trên
