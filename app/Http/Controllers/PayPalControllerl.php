@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Services\PayPalService as PayPalSvc;
 use App\Hoadontk;
 use PayPal\Api\WebProfile;
+use PayPal\Exception\PayPalConnectionException;
 
 class PayPalController extends Controller
 {
@@ -29,6 +30,7 @@ class PayPalController extends Controller
 
     public function index(Request $request)
     {
+        try{
         $data = [
             [
                 'name' => \Session::get('nd_maso'),
@@ -37,7 +39,7 @@ class PayPalController extends Controller
                 'sku' => '1'
             ],
         ];
-        $transactionDescription = "Nạp tiền vào tài khoản";
+        $transactionDescription = "Nap_tien_vao_tai_khoan";
 
         $paypalCheckoutUrl = $this->paypalSvc
             // ->setCurrency('eur')
@@ -51,6 +53,14 @@ class PayPalController extends Controller
             return redirect($paypalCheckoutUrl);
         } else {
             return redirect('nguoiban/naptien/them')->with('error-message','Thanh toán lỗi');
+        }
+        }
+        catch (PayPalConnectionException $ex) {
+            echo $ex->getCode(); // Prints the Error Code
+            echo $ex->getData(); // Prints the detailed error message
+            die($ex);
+        } catch (Exception $ex) {
+            die($ex);
         }
     }
 

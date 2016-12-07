@@ -27,7 +27,7 @@ class Hoadontk extends Model {
         if (($hdtk_nguoidung == null)||($hdtk_nguoidung==''))
             $hdtk_nguoidung = '';
         return \DB::table('hoadontk')->where([['hdtk_tgian','>=',$hdtk_tgian_tu],['hdtk_tgian','<=',$hdtk_tgian_den],
-            ['hdtk_gia','>=',$hdtk_gia_tu],['hdtk_gia','<=',$hdtk_gia_den],['hdtk_nguoidung','like','%'.$hdtk_nguoidung.'%']])
+            ['hdtk_gia','>=',$hdtk_gia_tu],['hdtk_gia','<=',$hdtk_gia_den],['hdtk_nguoidung','like',"%$hdtk_nguoidung%"],])
             ->orderBy($col,$type)->paginate(15,['*'],'page_hdtk');
     }
     public static function count($col = null, $type = null,$hdtk_tgian_tu = null,$hdtk_tgian_den = null,$hdtk_gia_tu = null, $hdtk_gia_den=null, $hdtk_nguoidung = null)
@@ -47,7 +47,7 @@ class Hoadontk extends Model {
         if (($hdtk_nguoidung == null)||($hdtk_nguoidung==''))
             $hdtk_nguoidung = '';
         return \DB::table('hoadontk')->where([['hdtk_tgian','>=',$hdtk_tgian_tu],['hdtk_tgian','<=',$hdtk_tgian_den],
-            ['hdtk_gia','>=',$hdtk_gia_tu],['hdtk_gia','<=',$hdtk_gia_den],['hdtk_nguoidung','like','%'.$hdtk_nguoidung.'%']])
+            ['hdtk_gia','>=',$hdtk_gia_tu],['hdtk_gia','<=',$hdtk_gia_den],['hdtk_nguoidung','like',"%$hdtk_nguoidung%"]])
             ->count('*');
     }
     public static function sum($col = null, $type = null,$hdtk_tgian_tu = null,$hdtk_tgian_den = null,$hdtk_gia_tu = null, $hdtk_gia_den=null, $hdtk_nguoidung = null)

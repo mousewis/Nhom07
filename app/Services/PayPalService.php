@@ -3,6 +3,7 @@
 namespace App\Services;
 use PayPal\Api\InputFields;
 use PayPal\Api\Presentation;
+use PayPal\Exception\PayPalConnectionException;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Item;
@@ -180,14 +181,14 @@ class PayPalService
         $input_fiels = new InputFields();
         $input_fiels->no_shipping = 1;
         $presentation = new Presentation();
-        $presentation->brand_name = 'Nạp tiền vào tài khoản';
+        $presentation->brand_name = 'Nap_tien';
         $presentation->locale_code = 'US';
         $presentation->logo_image = asset('/images/home/logo.png');
         $profile = new WebProfile();
-        $profile->name = 'Nạp tiền vào tài khoản';
+        $profile->name = 'Nap_tien';
         $profile->presentation = $presentation;
         $profile->input_fields = $input_fiels;
-        $webprofile = $profile->create($this->apiContext);
+        //$profile = $profile->create($this->apiContext);
         // Danh sách các item
         $itemList = new ItemList();
         $itemList->setItems($this->itemList);
@@ -221,7 +222,7 @@ class PayPalService
         // Khởi tạo một payment
         $payment = new Payment();
         $payment->setIntent('Sale')
-            ->setExperienceProfileId($webprofile->getId())
+            ->setExperienceProfileId($profile->getId())
             ->setPayer($payer)
             ->setRedirectUrls($redirectUrls)
             ->setTransactions([$transaction]);
@@ -229,8 +230,13 @@ class PayPalService
         // Thực hiện việc tạo payment
         try {
             $payment->create($this->apiContext);
-        } catch (\PayPal\Exception\PPConnectionException $paypalException) {
-            throw new \Exception($paypalException->getMessage());
+        }
+        catch (PayPalConnectionException $ex) {
+            echo $ex->getCode(); // Prints the Error Code
+            echo $ex->getData(); // Prints the detailed error message
+            die($ex);
+        } catch (Exception $ex) {
+            die($ex);
         }
 
         // Nếu việc thanh tạo một payment thành công. Chúng ta sẽ nhận

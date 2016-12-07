@@ -8,7 +8,7 @@ return [
         // PayPal mode, sanbox hoặc live
         'mode' => env('PAYPAL_MODE'),
         // Thời gian của một kết nối (tính bằng giây)
-        'http.ConnectionTimeOut' => 30,
+        'http.ConnectionTimeOut' => 300,
         // Có ghi log khi xảy ra lỗi
         'log.logEnabled' => true,
         // Đường dẫn đền file sẽ ghi log

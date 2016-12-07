@@ -29,7 +29,7 @@
                 @foreach($danhgia as $item)
                     @if ($item->danhgia==0)
                     <tr>
-                        <form action="{{url('nguoimua/danhgia/them')}}" method="post">
+                        <form action="{{url('nguoimua/danhgia/luu')}}" method="post">
                         <td><?= $item->hoadon ?>
                             <input type="hidden" name="dg_hoadon" value="<?= $item->hoadon?>"></td>
                         <td><?= $item->nguoiban?>

@@ -195,7 +195,7 @@ class NguoibanController extends Controller
             $hoadontk = Hoadontk::getall($request->input('col'),
                 $request->input('type'),$request->input('hdtk_tgian_tu'),
                 $request->input('hdtk_tgian_den'),$request->input('hdtk_gia_tu'),
-                $request->input('hdtk_gia_den'),\Session::has('nd_maso'));
+                $request->input('hdtk_gia_den'),\Session::get('nd_maso'));
             return view('nguoiban.naptien',compact('hoadontk',$hoadontk));
         }
         else

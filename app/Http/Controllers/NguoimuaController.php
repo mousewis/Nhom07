@@ -70,7 +70,7 @@ class NguoimuaController extends Controller
                 $this->validate($request, [
                 'hd_nguoinhan' => 'required|max:256',
                 'hd_dchi' => 'required|max:256',
-                'hd__sdt' => 'required|max:256',
+                'hd_sdt' => 'required|max:256',
             ]);
             $hd_maso = date('YmdHisu');
             $hd_nguoimua = \Session::get('nd_maso');
