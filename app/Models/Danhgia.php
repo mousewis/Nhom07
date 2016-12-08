@@ -32,12 +32,15 @@ class Danhgia extends Model {
     }
     public static function nguoimua($nd_maso)
     {
-        return \DB::select(\DB::raw("select hdn_nguoidung as nguoiban, hd_nguoimua as nguoimua, hd_maso as hoadon, ifnull(count(dg_nguoimua),0) as danhgia from hoadon left join cthoadon on hd_maso = cthd_hoadon
-                        left join dienthoai on cthd_dienthoai = dt_maso
-                        left join hoadonnhap on hdn_maso = dt_maso
-                        left join nguoidung on hdn_nguoidung = nd_maso
-                        left JOIN danhgia on dg_hoadon = hd_maso
-                        where hd_nguoimua='" .$nd_maso. "' and cthd_tinhtrang = 2
+        return \DB::select(\DB::raw("
+                        select hdn_nguoidung as nguoiban, hd_nguoimua as nguoimua,
+                        hd_maso as hoadon, ifnull(count(dg_nguoimua),0) as danhgia 
+                        from hoadon left join cthoadon on hd_maso = cthd_hoadon 
+                        left join dienthoai on cthd_dienthoai = dt_maso 
+                        left join hoadonnhap on hdn_maso = dt_hdn 
+                        left join nguoidung on hdn_nguoidung = nd_maso 
+                        left JOIN danhgia on dg_hoadon = hd_maso 
+                        where hd_nguoimua='customerA' and cthd_tinhtrang = 2
                         group by hoadon"));
     }
     public static function capnhat_nguoiban($dg_nguoiban)
