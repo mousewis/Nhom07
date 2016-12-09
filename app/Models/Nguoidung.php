@@ -18,7 +18,7 @@ class Nguoidung extends Model {
     public static function nguoiban()
     {
         $result = \DB::table('nguoidung')
-            ->where('nd_loai','=','1')->get();
+            ->where('nd_loai','=','1')->orderBy('nd_danhgia','desc')->forPage(1,5)->get();
         return $result;
     }
     public static function chitiet($nd_maso)
