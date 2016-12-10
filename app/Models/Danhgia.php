@@ -40,7 +40,7 @@ class Danhgia extends Model {
                         left join hoadonnhap on hdn_maso = dt_hdn 
                         left join nguoidung on hdn_nguoidung = nd_maso 
                         left JOIN danhgia on dg_hoadon = hd_maso 
-                        where hd_nguoimua='customerA' and cthd_tinhtrang = 2
+                        where hd_nguoimua='$nd_maso' and cthd_tinhtrang = 2
                         group by hoadon"));
     }
     public static function capnhat_nguoiban($dg_nguoiban)
