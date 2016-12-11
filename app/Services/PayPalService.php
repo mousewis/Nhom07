@@ -195,16 +195,16 @@ class PayPalService
         $input_fiels = new InputFields();
         $input_fiels->setNoShipping(1);
         $presentation = new Presentation();
-        $presentation->setBrandName('nap_tien_vao_tai_khoan');
+        $presentation->setBrandName('Dien thoai di dong');
         $presentation->setLocaleCode('US');
         $profile = new WebProfile();
-        $profile->setName('nap_tien');
+        $profile->setName('naptien');
         $profile->setPresentation($presentation);
         $profile->setInputFields($input_fiels);
         $profile->setTemporary(false);
         $webprofile = $profile->create($this->apiContext);
         dd($webprofile->getId());
-  */
+*/
 // Transaction
         $transaction = new Transaction();
         $transaction->setAmount($amount)
@@ -227,7 +227,7 @@ class PayPalService
 
         $payment = new Payment();
         $payment->setIntent('Sale')
-            ->setExperienceProfileId('XP-9MGX-5YMD-XJ8W-P9AH')
+            ->setExperienceProfileId('XP-WQG2-XP5Q-TDW2-NQRM')
             ->setPayer($payer)
             ->setRedirectUrls($redirectUrls)
             ->setTransactions([$transaction]);
