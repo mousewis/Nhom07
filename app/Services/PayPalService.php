@@ -191,22 +191,21 @@ class PayPalService
         $amount->setCurrency($this->paymentCurrency)
             ->setTotal($this->totalAmount);
         //webprolfile
-        /*
+/*
         $input_fiels = new InputFields();
         $input_fiels->setNoShipping(1);
         $presentation = new Presentation();
         $presentation->setBrandName('nap_tien_vao_tai_khoan');
         $presentation->setLocaleCode('US');
-        $presentation->setLogoImage(asset('/images/home/logo.png'));
         $profile = new WebProfile();
-        $profile->setName('nap_tien_vao_tai_khoan');
+        $profile->setName('nap_tien');
         $profile->setPresentation($presentation);
         $profile->setInputFields($input_fiels);
         $profile->setTemporary(false);
         $webprofile = $profile->create($this->apiContext);
         dd($webprofile->getId());
-        */
-        // Transaction
+  */
+// Transaction
         $transaction = new Transaction();
         $transaction->setAmount($amount)
             ->setItemList($itemList)
@@ -228,7 +227,7 @@ class PayPalService
 
         $payment = new Payment();
         $payment->setIntent('Sale')
-            ->setExperienceProfileId('XP-4GCX-GFES-BBVX-GWTD')
+            ->setExperienceProfileId('XP-9MGX-5YMD-XJ8W-P9AH')
             ->setPayer($payer)
             ->setRedirectUrls($redirectUrls)
             ->setTransactions([$transaction]);
